@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: desafio-processo-seletivo-seplag-api
+
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432}/desafio-processo-seletivo-seplag-db
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASS:postgres}
+
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 25MB
+
+
+springdoc:
+  show-actuator: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    filter: true
+    path: ${SWAGGER_PATH:/doc/swagger.html}
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env
+      base-path: /monitoramento
+
+s3:
+  endpoint: ${STORAGE_ENDPOINT:http://localhost:9000/storage}
+  bucket-name: ${STORAGE_BUCKET_NAME:desafio-seletivo-seplag-bucket}
+  access-key: ${STORAGE_ACCESS_KEY:admin}
+  secret-key: ${STORAGE_SECRET_KEY:admin}
