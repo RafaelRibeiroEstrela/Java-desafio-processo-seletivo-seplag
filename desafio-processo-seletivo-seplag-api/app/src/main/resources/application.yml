@@ -2,6 +2,11 @@ spring:
   application:
     name: desafio-processo-seletivo-seplag-api
 
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+
   datasource:
     url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432}/desafio-processo-seletivo-seplag-db
     username: ${POSTGRES_USER:postgres}

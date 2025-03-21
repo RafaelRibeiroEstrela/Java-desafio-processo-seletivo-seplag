@@ -1,4 +1,4 @@
-package com.example.appdesafioprocessoseletivoseplag.dtos.requests;
+package com.example.cidade;
 
 public class CidadeRequest {
 

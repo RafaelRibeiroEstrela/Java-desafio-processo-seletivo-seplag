@@ -1,6 +1,7 @@
 package com.example.services.impl;
 
 import com.example.models.Cidade;
+import com.example.models.enums.UfEnum;
 import com.example.models.filters.CidadeFilter;
 import com.example.ports.CidadePort;
 import com.example.providers.data.CustomPage;
@@ -61,6 +62,11 @@ public class CidadeServiceImpl implements CidadeService, LayerDefinition {
         }
         if (model.getUf() == null) {
             throw new BusinessException("A unidade federativa da cidade é obrigatório", this);
+        }
+        try {
+            UfEnum.toEnum(model.getUf());
+        } catch (IllegalArgumentException e) {
+            throw new BusinessException("Unidade federativa inválida", this);
         }
     }
 

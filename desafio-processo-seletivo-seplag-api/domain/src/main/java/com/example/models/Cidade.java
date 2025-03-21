@@ -1,13 +1,12 @@
 package com.example.models;
 
-import com.example.models.enums.UfEnum;
 import com.example.providers.models.BaseModel;
 
 public class Cidade implements BaseModel<Long> {
 
     private Long id;
     private String nome;
-    private UfEnum uf;
+    private String uf;
 
     @Override
     public Long getId() {
@@ -27,11 +26,11 @@ public class Cidade implements BaseModel<Long> {
         this.nome = nome;
     }
 
-    public UfEnum getUf() {
+    public String getUf() {
         return uf;
     }
 
-    public void setUf(UfEnum uf) {
+    public void setUf(String uf) {
         this.uf = uf;
     }
 }

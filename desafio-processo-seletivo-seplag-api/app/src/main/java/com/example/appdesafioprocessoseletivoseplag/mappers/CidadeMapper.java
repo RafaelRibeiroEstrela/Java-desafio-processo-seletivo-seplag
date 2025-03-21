@@ -1,8 +1,8 @@
 package com.example.appdesafioprocessoseletivoseplag.mappers;
 
-import com.example.appdesafioprocessoseletivoseplag.dtos.requests.CidadeRequest;
-import com.example.appdesafioprocessoseletivoseplag.dtos.responses.CidadeResponse;
 import com.example.appdesafioprocessoseletivoseplag.entities.CidadeEntity;
+import com.example.cidade.CidadeRequest;
+import com.example.cidade.CidadeResponse;
 import com.example.models.Cidade;
 import org.mapstruct.Mapper;
 
