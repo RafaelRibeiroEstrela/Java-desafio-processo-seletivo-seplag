@@ -1,12 +1,10 @@
 package com.example.appdesafioprocessoseletivoseplag.dtos.responses;
 
-import com.example.models.enums.UfEnum;
-
 public class CidadeResponse {
 
     private Long id;
     private String nome;
-    private UfEnum uf;
+    private String uf;
 
     public Long getId() {
         return id;
@@ -24,11 +22,11 @@ public class CidadeResponse {
         this.nome = nome;
     }
 
-    public UfEnum getUf() {
+    public String getUf() {
         return uf;
     }
 
-    public void setUf(UfEnum uf) {
+    public void setUf(String uf) {
         this.uf = uf;
     }
 }

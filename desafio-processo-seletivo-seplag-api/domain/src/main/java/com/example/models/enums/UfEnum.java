@@ -28,5 +28,12 @@ public enum UfEnum {
     SC, // Santa Catarina
     SP, // São Paulo
     SE, // Sergipe
-    TO  // Tocantins
+    TO;  // Tocantins
+
+    public static UfEnum toEnum(String value) {
+        if (value == null || value.isEmpty()) {
+            return null;
+        }
+        return UfEnum.valueOf(value.toUpperCase());
+    }
 }

@@ -44,5 +44,12 @@ public enum TipoLogradouroEnum {
     VIA,
     VIADUTO,
     VIELA,
-    VILA
+    VILA;
+
+    public static TipoLogradouroEnum toEnum(String value) {
+        if (value == null || value.isEmpty()) {
+            return null;
+        }
+        return TipoLogradouroEnum.valueOf(value.toUpperCase());
+    }
 }

@@ -1,11 +1,9 @@
 package com.example.appdesafioprocessoseletivoseplag.dtos.requests;
 
-import com.example.models.enums.UfEnum;
-
 public class CidadeRequest {
 
     private String nome;
-    private UfEnum uf;
+    private String uf;
 
     public String getNome() {
         return nome;
@@ -15,11 +13,11 @@ public class CidadeRequest {
         this.nome = nome;
     }
 
-    public UfEnum getUf() {
+    public String getUf() {
         return uf;
     }
 
-    public void setUf(UfEnum uf) {
+    public void setUf(String uf) {
         this.uf = uf;
     }
 }
