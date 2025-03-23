@@ -2,8 +2,6 @@ package com.example.appdesafioprocessoseletivoseplag.controllers;
 
 import com.example.appdesafioprocessoseletivoseplag.mappers.CidadeMapper;
 import com.example.appdesafioprocessoseletivoseplag.utils.PageUtil;
-import com.example.cidade.CidadeRequest;
-import com.example.cidade.CidadeResponse;
 import com.example.models.Cidade;
 import com.example.models.enums.UfEnum;
 import com.example.models.filters.CidadeFilter;

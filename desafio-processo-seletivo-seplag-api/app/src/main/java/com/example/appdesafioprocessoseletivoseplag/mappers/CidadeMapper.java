@@ -1,8 +1,7 @@
 package com.example.appdesafioprocessoseletivoseplag.mappers;
 
 import com.example.appdesafioprocessoseletivoseplag.entities.CidadeEntity;
-import com.example.cidade.CidadeRequest;
-import com.example.cidade.CidadeResponse;
+import com.example.cidade.CidadeDTO;
 import com.example.models.Cidade;
 import org.mapstruct.Mapper;
 
@@ -10,7 +9,7 @@ import org.mapstruct.Mapper;
 public interface CidadeMapper {
 
     Cidade entityToModel(CidadeEntity entity);
-    Cidade requestToModel(CidadeRequest request);
+    Cidade requestToModel(CidadeDTO request);
     CidadeEntity modelToEntity(Cidade model);
-    CidadeResponse modelToResponse(Cidade model);
+    CidadeDTO modelToResponse(Cidade model);
 }

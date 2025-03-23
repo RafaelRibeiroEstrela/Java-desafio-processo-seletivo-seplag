@@ -1,14 +1,23 @@
 package com.example.endereco;
 
-import com.example.cidade.CidadeRequest;
+import com.example.cidade.CidadeDTO;
 
-public class EnderecoRequest {
+public class EnderecoDTO {
 
+    private Long id;
     private String tipoLogradouro;
     private String logradouro;
     private String numero;
     private String bairro;
-    private CidadeRequest cidade;
+    private CidadeDTO cidade;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTipoLogradouro() {
         return tipoLogradouro;
@@ -42,11 +51,11 @@ public class EnderecoRequest {
         this.bairro = bairro;
     }
 
-    public CidadeRequest getCidade() {
+    public CidadeDTO getCidade() {
         return cidade;
     }
 
-    public void setCidade(CidadeRequest cidade) {
+    public void setCidade(CidadeDTO cidade) {
         this.cidade = cidade;
     }
 }

@@ -1,16 +1,16 @@
 package com.example.unidade;
 
-import com.example.endereco.EnderecoResponse;
+import com.example.endereco.EnderecoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UnidadeResponse {
+public class UnidadeDTO {
 
     private Long id;
     private String nome;
     private String sigla;
-    private List<EnderecoResponse> enderecos = new ArrayList<>();
+    private List<EnderecoDTO> enderecos = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -36,11 +36,11 @@ public class UnidadeResponse {
         this.sigla = sigla;
     }
 
-    public List<EnderecoResponse> getEnderecos() {
+    public List<EnderecoDTO> getEnderecos() {
         return enderecos;
     }
 
-    public void setEnderecos(List<EnderecoResponse> enderecos) {
+    public void setEnderecos(List<EnderecoDTO> enderecos) {
         this.enderecos = enderecos;
     }
 }

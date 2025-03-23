@@ -1,6 +1,6 @@
 package com.example.cidade;
 
-public class CidadeResponse {
+public class CidadeDTO {
 
     private Long id;
     private String nome;
