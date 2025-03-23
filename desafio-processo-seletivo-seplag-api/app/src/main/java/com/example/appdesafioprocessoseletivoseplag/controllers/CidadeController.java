@@ -2,6 +2,7 @@ package com.example.appdesafioprocessoseletivoseplag.controllers;
 
 import com.example.appdesafioprocessoseletivoseplag.mappers.CidadeMapper;
 import com.example.appdesafioprocessoseletivoseplag.utils.PageUtil;
+import com.example.cidade.CidadeDTO;
 import com.example.models.Cidade;
 import com.example.models.enums.UfEnum;
 import com.example.models.filters.CidadeFilter;
@@ -29,15 +30,15 @@ public class CidadeController {
 
     @Transactional(readOnly = true)
     @PostMapping("/paginado")
-    public Page<CidadeResponse> findByFilter(CidadeFilter filter, Pageable pageable) {
+    public Page<CidadeDTO> findByFilter(CidadeFilter filter, Pageable pageable) {
         CustomPage<Cidade> models = service.findByFilter(filter, PageUtil.toCustomPageable(pageable));
-        List<CidadeResponse> dtos = models.getContent().stream().map(mapper::modelToResponse).toList();
+        List<CidadeDTO> dtos = models.getContent().stream().map(mapper::modelToResponse).toList();
         return new PageImpl<>(dtos, pageable, models.getTotalElements());
     }
 
     @Transactional
     @PostMapping
-    public CidadeResponse create(@RequestBody CidadeRequest request) {
+    public CidadeDTO create(@RequestBody CidadeDTO request) {
         Cidade model = service.create(mapper.requestToModel(request));
         return mapper.modelToResponse(model);
     }
@@ -50,22 +51,22 @@ public class CidadeController {
 
     @Transactional(readOnly = true)
     @GetMapping
-    public List<CidadeResponse> findAll() {
+    public List<CidadeDTO> findAll() {
         List<Cidade> models = service.findAll();
         return models.stream().map(mapper::modelToResponse).toList();
     }
 
     @Transactional(readOnly = true)
     @GetMapping("/{id}")
-    public CidadeResponse findById(@PathVariable Long id) {
+    public CidadeDTO findById(@PathVariable Long id) {
         Cidade model = service.findById(id);
         return mapper.modelToResponse(model);
     }
 
     @Transactional
     @PutMapping("/{id}")
-    public CidadeResponse update(@RequestBody CidadeRequest cidade, @PathVariable Long id) {
-        Cidade model = service.update(mapper.requestToModel(cidade), id);
+    public CidadeDTO update(@RequestBody CidadeDTO request, @PathVariable Long id) {
+        Cidade model = service.update(mapper.requestToModel(request), id);
         return mapper.modelToResponse(model);
     }
 

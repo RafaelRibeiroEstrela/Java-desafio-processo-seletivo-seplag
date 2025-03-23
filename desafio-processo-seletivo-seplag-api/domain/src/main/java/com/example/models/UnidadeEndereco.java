@@ -1,19 +1,11 @@
-package com.example.appdesafioprocessoseletivoseplag.entities.ids;
+package com.example.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+public class UnidadeEndereco {
 
-@Embeddable
-public class UnidadeEnderecoId {
-
-    @Column(name = "unid_id")
     private Long unidadeId;
-    @Column(name = "end_id")
     private Long enderecoId;
 
-    public UnidadeEnderecoId() {}
-
-    public UnidadeEnderecoId(Long unidadeId, Long enderecoId) {
+    public UnidadeEndereco(long unidadeId, long enderecoId) {
         this.unidadeId = unidadeId;
         this.enderecoId = enderecoId;
     }

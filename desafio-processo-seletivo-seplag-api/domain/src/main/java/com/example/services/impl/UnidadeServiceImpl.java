@@ -2,7 +2,9 @@ package com.example.services.impl;
 
 import com.example.models.Endereco;
 import com.example.models.Unidade;
+import com.example.models.UnidadeEndereco;
 import com.example.models.filters.UnidadeFilter;
+import com.example.ports.UnidadeEnderecoPort;
 import com.example.ports.UnidadePort;
 import com.example.providers.data.CustomPage;
 import com.example.providers.data.CustomPageable;
@@ -14,15 +16,18 @@ import com.example.services.EnderecoService;
 import com.example.services.UnidadeService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UnidadeServiceImpl implements UnidadeService, LayerDefinition {
     
     private final UnidadePort port;
+    private final UnidadeEnderecoPort unidadeEnderecoPort;
 
     private final EnderecoService enderecoService;
 
-    public UnidadeServiceImpl(UnidadePort port, EnderecoService enderecoService) {
+    public UnidadeServiceImpl(UnidadePort port, UnidadeEnderecoPort unidadeEnderecoPort, EnderecoService enderecoService) {
         this.port = port;
+        this.unidadeEnderecoPort = unidadeEnderecoPort;
         this.enderecoService = enderecoService;
     }
 
@@ -34,13 +39,20 @@ public class UnidadeServiceImpl implements UnidadeService, LayerDefinition {
     @Override
     public Unidade create(Unidade unidade) {
         validarCamposObrigatorios(unidade);
+        unidade = port.save(unidade);
         unidade.setEnderecos(unidade.getEnderecos().stream().map(enderecoService::create).toList());
-        return port.save(unidade);
+        for (Endereco endereco : unidade.getEnderecos()) {
+            unidadeEnderecoPort.create(new UnidadeEndereco(unidade.getId(), endereco.getId()));
+        }
+        return unidade;
     }
 
     @Override
     public void delete(Long id) {
         //VALIDAR SE ALGUEM ESTA USANDO
+        List<UnidadeEndereco> unidadeEnderecoList = unidadeEnderecoPort.findByUnidadeId(id);
+        unidadeEnderecoPort.deleteByUnidadeId(id);
+        unidadeEnderecoList.forEach(unidadeEndereco -> enderecoService.delete(unidadeEndereco.getEnderecoId()));
         port.delete(id);
     }
 
@@ -51,15 +63,20 @@ public class UnidadeServiceImpl implements UnidadeService, LayerDefinition {
 
     @Override
     public Unidade findById(Long id) {
-        return port.findById(id).orElseThrow(() -> new ResourceNotFoundException("Nenhuma unidade encontrada", this));
+        Unidade unidade = port.findById(id).orElseThrow(() -> new ResourceNotFoundException("Nenhuma unidade encontrada", this));
+        List<UnidadeEndereco> unidadeEnderecoList = unidadeEnderecoPort.findByUnidadeId(id);
+        unidade.setEnderecos(unidadeEnderecoList.stream().map(unidadeEndereco -> enderecoService.findById(unidadeEndereco.getEnderecoId())).toList());
+        return unidade;
     }
 
     @Override
     public Unidade update(Unidade unidade, Long id) {
         validarCamposObrigatorios(unidade);
-        Unidade unidadeSalva = findById(id);
-        unidadeSalva.getEnderecos().forEach(endereco -> enderecoService.delete(endereco.getId()));
+        List<UnidadeEndereco> unidadeEnderecoList = unidadeEnderecoPort.findByUnidadeId(id);
+        unidadeEnderecoPort.deleteByUnidadeId(id);
+        unidadeEnderecoList.forEach(unidadeEndereco -> enderecoService.delete(unidadeEndereco.getEnderecoId()));
         unidade.setEnderecos(unidade.getEnderecos().stream().map(this::atualizarEndereco).toList());
+        unidade.getEnderecos().forEach(endereco -> unidadeEnderecoPort.create(new UnidadeEndereco(id, endereco.getId())));
         unidade.setId(id);
         return port.save(unidade);
     }

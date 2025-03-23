@@ -10,7 +10,7 @@ public interface UnidadeRepository extends JpaRepository<UnidadeEntity, Long> {
 
     @Query("SELECT u " +
             "FROM UnidadeEntity u " +
-            "WHERE (:nome IS NULL OR UPPER(u.nome) LIKE CONCAT('%',CONCAT(UPPER(:nome),'%'))) " +
-            "AND (:sigla IS NULL OR UPPER(u.sigla) LIKE CONCAT('%',CONCAT(UPPER(:sigla),'%'))) ")
+            "WHERE (:nome IS NULL OR UPPER(u.nome) LIKE :nome) " +
+            "AND (:sigla IS NULL OR UPPER(u.sigla) LIKE :sigla) ")
     Page<UnidadeEntity> findByFilter(String nome, String sigla, Pageable pageable);
 }

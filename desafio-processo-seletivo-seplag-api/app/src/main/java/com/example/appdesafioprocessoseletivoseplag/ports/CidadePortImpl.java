@@ -4,6 +4,7 @@ import com.example.appdesafioprocessoseletivoseplag.entities.CidadeEntity;
 import com.example.appdesafioprocessoseletivoseplag.mappers.CidadeMapper;
 import com.example.appdesafioprocessoseletivoseplag.repositories.CidadeRepository;
 import com.example.appdesafioprocessoseletivoseplag.utils.PageUtil;
+import com.example.appdesafioprocessoseletivoseplag.utils.QueryUtil;
 import com.example.models.Cidade;
 import com.example.models.filters.CidadeFilter;
 import com.example.ports.CidadePort;
@@ -29,7 +30,7 @@ public class CidadePortImpl implements CidadePort {
 
     @Override
     public CustomPage<Cidade> findByFilter(CidadeFilter filter, CustomPageable pageable) {
-        Page<CidadeEntity> entities = repository.findByFilter(filter.getNome(), filter.getUf(), PageUtil.toPageable(pageable));
+        Page<CidadeEntity> entities = repository.findByFilter(QueryUtil.aplicarLetraMaiusculaEColocarEntreCoringas(filter.getNome()), filter.getUf(), PageUtil.toPageable(pageable));
         List<Cidade> models = entities.stream().map(mapper::entityToModel).toList();
         return new CustomPageImpl<>(models, entities.getTotalElements(), entities.getNumber(), entities.getSize());
     }

@@ -7,6 +7,7 @@ import com.example.providers.exceptions.BusinessException;
 import com.example.providers.exceptions.LayerDefinition;
 import com.example.providers.exceptions.ResourceNotFoundException;
 import com.example.providers.exceptions.enums.LayerEnum;
+import com.example.services.CidadeService;
 import com.example.services.EnderecoService;
 
 import java.util.List;
@@ -14,9 +15,11 @@ import java.util.List;
 public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
 
     private final EnderecoPort port;
+    private final CidadeService cidadeService;
 
-    public EnderecoServiceImpl(EnderecoPort port) {
+    public EnderecoServiceImpl(EnderecoPort port, CidadeService cidadeService) {
         this.port = port;
+        this.cidadeService = cidadeService;
     }
 
     @Override
@@ -27,7 +30,6 @@ public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
 
     @Override
     public void delete(Long id) {
-        //VALIDAR SE ALGUEM ESTA USANDO
         port.delete(id);
     }
 
@@ -38,7 +40,9 @@ public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
 
     @Override
     public Endereco findById(Long id) {
-        return port.findById(id).orElseThrow(() -> new ResourceNotFoundException("Nenhum endereco encontrado", this));
+        Endereco endereco = port.findById(id).orElseThrow(() -> new ResourceNotFoundException("Nenhum endereco encontrado", this));
+        endereco.setCidade(cidadeService.findById(endereco.getCidade().getId()));
+        return endereco;
     }
 
     @Override
