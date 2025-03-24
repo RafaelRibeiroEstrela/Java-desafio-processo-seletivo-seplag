@@ -1,6 +1,7 @@
 package com.example.desafioprocessoseletivoseplagapi.services.impl;
 
 import com.example.desafioprocessoseletivoseplagapi.dtos.EnderecoDTO;
+import com.example.desafioprocessoseletivoseplagapi.dtos.FotoDTO;
 import com.example.desafioprocessoseletivoseplagapi.dtos.PessoaDTO;
 import com.example.desafioprocessoseletivoseplagapi.models.Pessoa;
 import com.example.desafioprocessoseletivoseplagapi.models.PessoaEndereco;
@@ -12,6 +13,7 @@ import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.L
 import com.example.desafioprocessoseletivoseplagapi.repositories.PessoaEnderecoRepository;
 import com.example.desafioprocessoseletivoseplagapi.repositories.PessoaRepository;
 import com.example.desafioprocessoseletivoseplagapi.services.EnderecoService;
+import com.example.desafioprocessoseletivoseplagapi.services.FotoService;
 import com.example.desafioprocessoseletivoseplagapi.services.PessoaService;
 import com.example.desafioprocessoseletivoseplagapi.utils.QueryUtil;
 import org.springframework.data.domain.Page;
@@ -27,11 +29,13 @@ public class PessoaServiceImpl implements PessoaService, LayerDefinition {
 
     private final PessoaEnderecoRepository pessoaEnderecoRepository;
     private final EnderecoService enderecoService;
+    private final FotoService fotoService;
 
-    public PessoaServiceImpl(PessoaRepository repository, PessoaEnderecoRepository pessoaEnderecoRepository, EnderecoService enderecoService) {
+    public PessoaServiceImpl(PessoaRepository repository, PessoaEnderecoRepository pessoaEnderecoRepository, EnderecoService enderecoService, FotoService fotoService) {
         this.repository = repository;
         this.pessoaEnderecoRepository = pessoaEnderecoRepository;
         this.enderecoService = enderecoService;
+        this.fotoService = fotoService;
     }
 
     @Override
@@ -58,6 +62,7 @@ public class PessoaServiceImpl implements PessoaService, LayerDefinition {
         List<PessoaEndereco> pessoaEnderecoList = pessoaEnderecoRepository.findByPessoaId(id);
         pessoaEnderecoRepository.deleteByPessoaId(id);
         pessoaEnderecoList.forEach(pessoaEndereco -> enderecoService.delete(pessoaEndereco.getId().getEnderecoId()));
+        fotoService.delete(id);
         repository.deleteById(id);
     }
 
@@ -71,8 +76,10 @@ public class PessoaServiceImpl implements PessoaService, LayerDefinition {
         Pessoa model = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Nenhuma pessoa encontrada", this));
         List<PessoaEndereco> pessoaEnderecoList = pessoaEnderecoRepository.findByPessoaId(id);
         List<EnderecoDTO> enderecoDTOList = pessoaEnderecoList.stream().map(pessoaEndereco -> enderecoService.findById(pessoaEndereco.getId().getEnderecoId())).toList();
+        List<FotoDTO> fotoDTOList = fotoService.findByPessoaId(id);
         PessoaDTO dto = new PessoaDTO(model);
         dto.setEnderecos(enderecoDTOList);
+        dto.setFotos(fotoDTOList);
         return dto;
     }
 

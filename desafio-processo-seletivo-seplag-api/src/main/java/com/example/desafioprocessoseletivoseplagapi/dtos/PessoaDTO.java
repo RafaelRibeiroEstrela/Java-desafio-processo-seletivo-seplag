@@ -1,5 +1,7 @@
 package com.example.desafioprocessoseletivoseplagapi.dtos;
 
+import com.example.desafioprocessoseletivoseplagapi.models.Endereco;
+import com.example.desafioprocessoseletivoseplagapi.models.Foto;
 import com.example.desafioprocessoseletivoseplagapi.models.Pessoa;
 import com.example.desafioprocessoseletivoseplagapi.models.enums.SexoEnum;
 import com.example.desafioprocessoseletivoseplagapi.providers.dtos.ToModel;
@@ -19,6 +21,7 @@ public class PessoaDTO implements ToModel<Pessoa> {
     private String nomeMae;
     private String nomePai;
     private List<EnderecoDTO> enderecos = new ArrayList<>();
+    private List<FotoDTO> fotos = new ArrayList<>();
 
     public PessoaDTO() {}
 
@@ -29,6 +32,12 @@ public class PessoaDTO implements ToModel<Pessoa> {
         this.sexo = pessoa.getSexo();
         this.nomeMae = pessoa.getNomeMae();
         this.nomePai = pessoa.getNomePai();
+    }
+
+    public PessoaDTO(Pessoa pessoa, List<Endereco> enderecos, List<Foto> fotos) {
+        this(pessoa);
+        this.enderecos = enderecos.stream().map(EnderecoDTO::new).toList();
+        this.fotos = fotos.stream().map(FotoDTO::new).toList();
     }
 
     public Long getId() {
@@ -85,6 +94,14 @@ public class PessoaDTO implements ToModel<Pessoa> {
 
     public void setEnderecos(List<EnderecoDTO> enderecos) {
         this.enderecos = enderecos;
+    }
+
+    public List<FotoDTO> getFotos() {
+        return fotos;
+    }
+
+    public void setFotos(List<FotoDTO> fotos) {
+        this.fotos = fotos;
     }
 
     @Override

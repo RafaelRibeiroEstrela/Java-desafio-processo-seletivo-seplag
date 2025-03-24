@@ -35,7 +35,10 @@ management:
       base-path: /monitoramento
 
 s3:
-  endpoint: ${STORAGE_ENDPOINT:http://localhost:9000/storage}
-  bucket-name: ${STORAGE_BUCKET_NAME:desafio-seletivo-seplag-bucket}
-  access-key: ${STORAGE_ACCESS_KEY:admin}
-  secret-key: ${STORAGE_SECRET_KEY:admin}
+  endpoint: ${STORAGE_ENDPOINT:http://localhost:9000}
+  bucket-name: desafio-processo-seletivo-seplag-bucket
+  access-key: ${STORAGE_ACCESS_KEY:user}
+  secret-key: ${STORAGE_SECRET_KEY:12345678}
+
+server:
+  port: 8080
