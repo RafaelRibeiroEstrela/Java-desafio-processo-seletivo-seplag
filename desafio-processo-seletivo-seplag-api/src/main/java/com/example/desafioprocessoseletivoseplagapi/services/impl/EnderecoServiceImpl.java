@@ -12,10 +12,11 @@ import com.example.desafioprocessoseletivoseplagapi.repositories.EnderecoReposit
 import com.example.desafioprocessoseletivoseplagapi.services.CidadeService;
 import com.example.desafioprocessoseletivoseplagapi.services.EnderecoService;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
 
     private final EnderecoRepository repository;

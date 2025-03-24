@@ -13,10 +13,11 @@ import com.example.desafioprocessoseletivoseplagapi.utils.QueryUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class CidadeServiceImpl implements CidadeService, LayerDefinition {
 
     private final CidadeRepository repository;
