@@ -47,6 +47,9 @@ public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
 
     @Override
     public Endereco update(Endereco endereco, Long id) {
+        if (!port.existsById(id)) {
+            throw new ResourceNotFoundException("Nenhuma cidade encontrada", this);
+        }
         validarCamposObrigatorios(endereco);
         endereco.setId(id);
         return port.save(endereco);

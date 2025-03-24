@@ -71,6 +71,9 @@ public class UnidadeServiceImpl implements UnidadeService, LayerDefinition {
 
     @Override
     public Unidade update(Unidade unidade, Long id) {
+        if (!port.existsById(id)) {
+            throw new ResourceNotFoundException("Nenhuma unidade encontrada", this);
+        }
         validarCamposObrigatorios(unidade);
         List<UnidadeEndereco> unidadeEnderecoList = unidadeEnderecoPort.findByUnidadeId(id);
         unidadeEnderecoPort.deleteByUnidadeId(id);
