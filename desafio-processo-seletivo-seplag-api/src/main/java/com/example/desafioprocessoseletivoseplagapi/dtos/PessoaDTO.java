@@ -6,6 +6,8 @@ import com.example.desafioprocessoseletivoseplagapi.providers.dtos.ToModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PessoaDTO implements ToModel<Pessoa> {
 
@@ -16,6 +18,7 @@ public class PessoaDTO implements ToModel<Pessoa> {
     private SexoEnum sexo;
     private String nomeMae;
     private String nomePai;
+    private List<EnderecoDTO> enderecos = new ArrayList<>();
 
     public PessoaDTO() {}
 
@@ -74,6 +77,14 @@ public class PessoaDTO implements ToModel<Pessoa> {
 
     public void setNomePai(String nomePai) {
         this.nomePai = nomePai;
+    }
+
+    public List<EnderecoDTO> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<EnderecoDTO> enderecos) {
+        this.enderecos = enderecos;
     }
 
     @Override
