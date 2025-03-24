@@ -30,7 +30,7 @@ public class CidadeController {
 
     @Transactional(readOnly = true)
     @PostMapping("/paginado")
-    public Page<CidadeDTO> findByFilter(CidadeFilter filter, Pageable pageable) {
+    public Page<CidadeDTO> findByFilter(@RequestBody CidadeFilter filter, Pageable pageable) {
         CustomPage<Cidade> models = service.findByFilter(filter, PageUtil.toCustomPageable(pageable));
         List<CidadeDTO> dtos = models.getContent().stream().map(mapper::modelToResponse).toList();
         return new PageImpl<>(dtos, pageable, models.getTotalElements());

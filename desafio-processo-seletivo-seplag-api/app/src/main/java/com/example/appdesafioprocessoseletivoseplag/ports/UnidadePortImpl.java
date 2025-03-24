@@ -52,6 +52,11 @@ public class UnidadePortImpl implements UnidadePort {
     }
 
     @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
+    }
+
+    @Override
     public Unidade save(Unidade unidade) {
         UnidadeEntity entity = mapper.modelToEntity(unidade);
         entity = repository.save(entity);

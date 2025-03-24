@@ -7,4 +7,5 @@ public interface FindPort<T, ID> {
 
     List<T> findAll();
     Optional<T> findById(ID id);
+    boolean existsById(ID id);
 }

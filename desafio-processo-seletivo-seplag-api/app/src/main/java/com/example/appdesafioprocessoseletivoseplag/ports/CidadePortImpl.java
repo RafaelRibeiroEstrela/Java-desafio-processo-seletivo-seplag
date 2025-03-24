@@ -52,6 +52,11 @@ public class CidadePortImpl implements CidadePort {
     }
 
     @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
+    }
+
+    @Override
     public Cidade save(Cidade cidade) {
         CidadeEntity entity = mapper.modelToEntity(cidade);
         entity = repository.save(entity);

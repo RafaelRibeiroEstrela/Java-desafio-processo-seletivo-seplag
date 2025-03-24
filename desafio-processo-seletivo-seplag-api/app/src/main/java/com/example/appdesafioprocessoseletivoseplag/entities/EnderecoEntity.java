@@ -12,6 +12,7 @@ public class EnderecoEntity {
     @Column(name = "end_id")
     private Long id;
     @Column(name = "end_tipo_logradouro")
+    @Enumerated(EnumType.STRING)
     private TipoLogradouroEnum tipoLogradouro;
     @Column(name = "end_logradouro")
     private String logradouro;

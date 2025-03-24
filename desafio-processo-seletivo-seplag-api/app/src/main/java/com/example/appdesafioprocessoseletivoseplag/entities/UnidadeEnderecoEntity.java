@@ -1,31 +1,28 @@
 package com.example.appdesafioprocessoseletivoseplag.entities;
 
+import com.example.appdesafioprocessoseletivoseplag.entities.ids.UnidadeEnderecoId;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "unidade_endereco")
 public class UnidadeEnderecoEntity {
 
-    @Id
-    private Long id;
-    private Long unidadeId;
-    private Long enderecoId;
+    @EmbeddedId
+    private UnidadeEnderecoId id;
 
-    public Long getUnidadeId() {
-        return unidadeId;
+    public UnidadeEnderecoEntity() {}
+
+    public UnidadeEnderecoEntity(long unidadeId, long enderecoId) {
+        this.id = new UnidadeEnderecoId(unidadeId, enderecoId);
     }
 
-    public void setUnidadeId(Long unidadeId) {
-        this.unidadeId = unidadeId;
+    public UnidadeEnderecoId getId() {
+        return id;
     }
 
-    public Long getEnderecoId() {
-        return enderecoId;
-    }
-
-    public void setEnderecoId(Long enderecoId) {
-        this.enderecoId = enderecoId;
+    public void setId(UnidadeEnderecoId id) {
+        this.id = id;
     }
 }

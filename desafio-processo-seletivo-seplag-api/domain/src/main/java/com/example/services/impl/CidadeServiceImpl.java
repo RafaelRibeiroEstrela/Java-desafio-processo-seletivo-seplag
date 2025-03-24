@@ -51,6 +51,9 @@ public class CidadeServiceImpl implements CidadeService, LayerDefinition {
 
     @Override
     public Cidade update(Cidade model, Long id) {
+        if (!port.existsById(id)) {
+            throw new ResourceNotFoundException("Nenhuma cidade encontrada", this);
+        }
         validarCamposObrigatorios(model);
         model.setId(id);
         return port.save(model);

@@ -5,7 +5,6 @@ import com.example.models.Unidade;
 import com.example.unidade.UnidadeDTO;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
 public interface UnidadeMapper {
 
     Unidade requestToModel(UnidadeDTO request);

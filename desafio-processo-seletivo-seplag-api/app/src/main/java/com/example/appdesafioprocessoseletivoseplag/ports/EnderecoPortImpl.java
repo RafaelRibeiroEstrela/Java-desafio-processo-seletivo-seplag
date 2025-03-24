@@ -39,6 +39,11 @@ public class EnderecoPortImpl implements EnderecoPort {
     }
 
     @Override
+    public boolean existsById(Long id) {
+        return repository.existsById(id);
+    }
+
+    @Override
     public Endereco save(Endereco endereco) {
         EnderecoEntity entity = mapper.modelToEntity(endereco);
         entity = repository.save(entity);

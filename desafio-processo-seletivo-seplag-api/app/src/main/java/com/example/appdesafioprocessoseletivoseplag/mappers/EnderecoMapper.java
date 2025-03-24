@@ -5,7 +5,6 @@ import com.example.endereco.EnderecoDTO;
 import com.example.models.Endereco;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
 public interface EnderecoMapper {
 
     Endereco requestToModel(EnderecoDTO request);

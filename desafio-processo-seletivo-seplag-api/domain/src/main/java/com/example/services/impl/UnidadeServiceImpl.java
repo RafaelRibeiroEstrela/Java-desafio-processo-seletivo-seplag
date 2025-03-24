@@ -16,7 +16,6 @@ import com.example.services.EnderecoService;
 import com.example.services.UnidadeService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UnidadeServiceImpl implements UnidadeService, LayerDefinition {
     
@@ -39,8 +38,9 @@ public class UnidadeServiceImpl implements UnidadeService, LayerDefinition {
     @Override
     public Unidade create(Unidade unidade) {
         validarCamposObrigatorios(unidade);
+        List<Endereco> enderecos = unidade.getEnderecos();
         unidade = port.save(unidade);
-        unidade.setEnderecos(unidade.getEnderecos().stream().map(enderecoService::create).toList());
+        unidade.setEnderecos(enderecos.stream().map(enderecoService::create).toList());
         for (Endereco endereco : unidade.getEnderecos()) {
             unidadeEnderecoPort.create(new UnidadeEndereco(unidade.getId(), endereco.getId()));
         }
