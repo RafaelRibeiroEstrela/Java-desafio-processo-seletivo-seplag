@@ -98,7 +98,7 @@ create table servidor_temporario
 (
     pes_id           bigint not null,
     st_data_admissao date   not null,
-    st_data_demissao date   not null,
+    st_data_demissao date,
     constraint servidor_temporario_pes_id_pk primary key (pes_id),
     constraint servidor_temporario_pes_id_fk foreign key (pes_id) references pessoa (pes_id)
 );

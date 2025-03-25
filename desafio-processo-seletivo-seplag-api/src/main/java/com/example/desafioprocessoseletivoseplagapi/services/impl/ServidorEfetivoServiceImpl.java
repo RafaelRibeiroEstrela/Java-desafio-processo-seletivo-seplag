@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ServidorEfetivoImpl implements ServidorEfetivoService, LayerDefinition {
+public class ServidorEfetivoServiceImpl implements ServidorEfetivoService, LayerDefinition {
     
     private final ServidorEfetivoRepository repository;
     
     private final PessoaService pessoaService;
 
-    public ServidorEfetivoImpl(ServidorEfetivoRepository repository, PessoaService pessoaService) {
+    public ServidorEfetivoServiceImpl(ServidorEfetivoRepository repository, PessoaService pessoaService) {
         this.repository = repository;
         this.pessoaService = pessoaService;
     }
