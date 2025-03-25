@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/pessoas/fotos")
+@RequestMapping("/v1/fotos")
 public class FotoController implements LayerDefinition {
 
     private final FotoService service;

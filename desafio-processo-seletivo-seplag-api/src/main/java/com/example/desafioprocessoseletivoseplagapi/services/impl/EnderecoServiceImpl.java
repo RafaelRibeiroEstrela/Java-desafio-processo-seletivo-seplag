@@ -11,7 +11,6 @@ import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.L
 import com.example.desafioprocessoseletivoseplagapi.repositories.EnderecoRepository;
 import com.example.desafioprocessoseletivoseplagapi.services.CidadeService;
 import com.example.desafioprocessoseletivoseplagapi.services.EnderecoService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

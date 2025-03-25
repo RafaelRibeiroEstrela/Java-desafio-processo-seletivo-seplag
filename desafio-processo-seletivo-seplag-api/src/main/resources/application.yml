@@ -42,3 +42,5 @@ s3:
 
 server:
   port: 8080
+
+debug: true

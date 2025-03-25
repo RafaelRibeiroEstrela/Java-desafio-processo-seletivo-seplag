@@ -86,7 +86,7 @@ public class PessoaServiceImpl implements PessoaService, LayerDefinition {
     @Override
     public PessoaDTO update(PessoaDTO dto, Long id) {
         if (!repository.existsById(id)) {
-            throw new ResourceNotFoundException("Nenhuma unidade encontrada", this);
+            throw new ResourceNotFoundException("Nenhuma pessoa encontrada", this);
         }
         validarCamposObrigatorios(dto);
         atualizarEndereco(dto, id);

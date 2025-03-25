@@ -80,7 +80,7 @@ create table foto_pessoa
 
 insert into foto_pessoa (fp_data, fp_bucket, fp_hash, fp_url, pes_id)
 values (CURRENT_DATE, 'desafio-seletivo-seplag-bucket', '72d2d119-9e33-42f9-929c-bb7eb54062d0',
-        'http://localhost:9000/desafio-processo-seletivo-seplag-bucket/72d2d119-9e33-42f9-929c-bb7eb54062d0', 1);
+        'http://localhost:8080/desafio-processo-seletivo-seplag-bucket/72d2d119-9e33-42f9-929c-bb7eb54062d0', 1);
 
 create table pessoa_endereco
 (
@@ -106,7 +106,7 @@ create table servidor_temporario
 create table servidor_efetivo
 (
     pes_id       bigint not null,
-    se_matricula varchar(20),
+    se_matricula bigint not null,
     constraint servidor_efetivo_pes_id_pk primary key (pes_id),
     constraint servidor_efetivo_pes_id_fk foreign key (pes_id) references pessoa (pes_id),
     constraint servidor_efetivo_se_matricula_unique unique (se_matricula)
