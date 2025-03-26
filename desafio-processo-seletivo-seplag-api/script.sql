@@ -130,3 +130,39 @@ create table lotacao
 
 insert into lotacao (lot_data_lotacao, lot_portaria, pes_id, unid_id)
 values (CURRENT_DATE, 'PORTARIA XPTO', 1, 1);
+
+
+create table role_tb
+(
+    ro_id        bigserial,
+    ro_authority varchar(200) not null,
+    constraint role_tb_ro_id_pk primary key (ro_id),
+    constraint role_tb_ro_authority_un unique (ro_authority)
+);
+
+insert into role_tb (ro_authority)
+values ('ROLE_ADMIN');
+
+create table user_tb
+(
+    us_id       bigserial,
+    us_username varchar(255) not null,
+    us_password varchar(255) not null,
+    constraint user_tb_us_id_pk primary key (us_id),
+    constraint user_tb_us_username_un unique (us_username)
+);
+
+insert into user_tb (us_username, us_password)
+values ('joao_junior@teste.com', '$2a$12$9wZ/jMPm8ZKPsQgj1ZohiOIfVceCO5Pe7riyxHESdaoqSs5qTJFxO');
+
+create table user_role_tb
+(
+    ro_id bigint,
+    us_id bigint,
+    constraint user_role_tb_ro_id_us_id_pk primary key (ro_id, us_id),
+    constraint user_role_tb_ro_id_fk foreign key (ro_id) references role_tb (ro_id),
+    constraint user_role_tb_us_id_fk foreign key (us_id) references user_tb (us_id)
+);
+
+insert into user_role_tb (ro_id, us_id)
+values (1, 1);
