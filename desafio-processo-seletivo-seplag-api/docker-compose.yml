@@ -8,7 +8,7 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
+      - db
       - minio
     environment:
       POSTGRES_URL: jdbc:postgresql://postgres:5432
@@ -19,7 +19,7 @@ services:
       STORAGE_ACCESS_KEY: user
       STORAGE_SECRET_KEY: 12345678
 
-  postgres:
+  db:
     image: postgres
     restart: always
     environment:
@@ -27,10 +27,9 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - '5432:5432'
-    networks:
-      -  postgres_network
     volumes:
-      - db:/volumes/data/postgres
+      - postgres_db:/volumes/data/postgres
+      - ./script.sql:/docker-entrypoint-initdb.d/script.sql:ro
 
   minio:
     image: docker.io/bitnami/minio:2022
@@ -49,11 +48,9 @@ services:
 networks:
   minio_network:
     driver: bridge
-  postgres_network:
-    driver: bridge
 
 volumes:
   minio_db:
     driver: local
-  postgres:
+  postgres_db:
     driver: local
