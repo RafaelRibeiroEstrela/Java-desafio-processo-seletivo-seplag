@@ -16,6 +16,8 @@ import com.example.desafioprocessoseletivoseplagapi.services.EnderecoService;
 import com.example.desafioprocessoseletivoseplagapi.services.FotoService;
 import com.example.desafioprocessoseletivoseplagapi.services.PessoaService;
 import com.example.desafioprocessoseletivoseplagapi.utils.QueryUtil;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -57,6 +59,7 @@ public class PessoaServiceImpl implements PessoaService, LayerDefinition {
         return new PessoaDTO(model);
     }
 
+    @CacheEvict(cacheNames = "pessoas", key = "#id")
     @Override
     public void delete(Long id) {
         List<PessoaEndereco> pessoaEnderecoList = pessoaEnderecoRepository.findByPessoaId(id);
@@ -71,6 +74,7 @@ public class PessoaServiceImpl implements PessoaService, LayerDefinition {
         return repository.findAll().stream().map(PessoaDTO::new).toList();
     }
 
+    @Cacheable(cacheNames = "pessoas", key = "#id")
     @Override
     public PessoaDTO findById(Long id) {
         Pessoa model = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Nenhuma pessoa encontrada", this));
@@ -83,6 +87,7 @@ public class PessoaServiceImpl implements PessoaService, LayerDefinition {
         return dto;
     }
 
+    @CacheEvict(cacheNames = "pessoas", key = "#id")
     @Override
     public PessoaDTO update(PessoaDTO dto, Long id) {
         if (!repository.existsById(id)) {

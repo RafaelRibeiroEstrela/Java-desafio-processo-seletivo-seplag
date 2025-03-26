@@ -2,6 +2,7 @@ package com.example.desafioprocessoseletivoseplagapi.controllers;
 
 import com.example.desafioprocessoseletivoseplagapi.dtos.FotoDTO;
 import com.example.desafioprocessoseletivoseplagapi.services.FotoService;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ public class DownloadFotoController {
         this.fotoService = fotoService;
     }
 
+    @Hidden
     @GetMapping("/desafio-processo-seletivo-seplag-bucket/{key}")
     public ResponseEntity<InputStreamResource> download(@PathVariable String key) {
         FotoDTO dto = fotoService.download(key);

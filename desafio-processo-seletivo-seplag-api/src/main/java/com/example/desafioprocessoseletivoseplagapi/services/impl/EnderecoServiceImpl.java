@@ -11,6 +11,8 @@ import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.L
 import com.example.desafioprocessoseletivoseplagapi.repositories.EnderecoRepository;
 import com.example.desafioprocessoseletivoseplagapi.services.CidadeService;
 import com.example.desafioprocessoseletivoseplagapi.services.EnderecoService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +37,7 @@ public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
         return new EnderecoDTO(model);
     }
 
+    @CacheEvict(cacheNames = "enderecos", key = "#id")
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
@@ -45,6 +48,7 @@ public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
         return repository.findAll().stream().map(EnderecoDTO::new).toList();
     }
 
+    @Cacheable(cacheNames = "enderecos", key = "#id")
     @Override
     public EnderecoDTO findById(Long id) {
         Endereco model = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Nenhum endereco encontrado", this));
@@ -54,6 +58,7 @@ public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
         return dto;
     }
 
+    @CacheEvict(cacheNames = "enderecos", key = "#id")
     @Override
     public EnderecoDTO update(EnderecoDTO enderecoDTO, Long id) {
         if (!repository.existsById(id)) {

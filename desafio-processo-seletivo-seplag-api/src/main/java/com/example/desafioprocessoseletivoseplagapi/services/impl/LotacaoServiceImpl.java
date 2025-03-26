@@ -4,12 +4,18 @@ import com.example.desafioprocessoseletivoseplagapi.dtos.LotacaoDTO;
 import com.example.desafioprocessoseletivoseplagapi.dtos.PessoaDTO;
 import com.example.desafioprocessoseletivoseplagapi.dtos.UnidadeDTO;
 import com.example.desafioprocessoseletivoseplagapi.models.Lotacao;
+import com.example.desafioprocessoseletivoseplagapi.models.filters.LotacaoFilter;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.BusinessException;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.LayerDefinition;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.ResourceNotFoundException;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.LayerEnum;
 import com.example.desafioprocessoseletivoseplagapi.repositories.LotacaoRepository;
-import com.example.desafioprocessoseletivoseplagapi.services.*;
+import com.example.desafioprocessoseletivoseplagapi.services.LotacaoService;
+import com.example.desafioprocessoseletivoseplagapi.services.PessoaService;
+import com.example.desafioprocessoseletivoseplagapi.services.UnidadeService;
+import com.example.desafioprocessoseletivoseplagapi.utils.QueryUtil;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -76,15 +82,16 @@ public class LotacaoServiceImpl implements LotacaoService, LayerDefinition {
     }
 
     @Override
-    public List<LotacaoDTO> findServidoresEfetivosByUnidadeId(long unidadeId) {
-        List<Lotacao> lotacoes = repository.findServidoresEfetivosByUnidadeId(unidadeId);
-        return lotacoes.stream().map(lotacao -> {
+    public Page<LotacaoDTO> findByFilter(LotacaoFilter filter, Pageable pageable) {
+        Page<Lotacao> models = repository.findByFilter(QueryUtil.aplicarLetraMaiusculaEColocarEntreCoringas(filter.getNome()), filter.getUnidadeId(), pageable);
+        return models.map(lotacao -> {
             LotacaoDTO dto = new LotacaoDTO(lotacao);
             dto.setPessoa(pessoaService.findById(lotacao.getPessoaId()));
             dto.setUnidade(unidadeService.findById(lotacao.getUnidadeId()));
             return dto;
-        }).toList();
+        });
     }
+
 
     private void validarCamposObrigatorios(LotacaoDTO lotacaoDTO) {
         if (lotacaoDTO.getPessoa() == null || lotacaoDTO.getPessoa().getId() == null) {
@@ -104,6 +111,7 @@ public class LotacaoServiceImpl implements LotacaoService, LayerDefinition {
     public LayerEnum getLayer() {
         return LayerEnum.API_COMPONENT;
     }
+
 
 
 }

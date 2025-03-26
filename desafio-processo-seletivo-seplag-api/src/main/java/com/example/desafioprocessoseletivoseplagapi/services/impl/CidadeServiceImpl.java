@@ -10,9 +10,10 @@ import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.L
 import com.example.desafioprocessoseletivoseplagapi.repositories.CidadeRepository;
 import com.example.desafioprocessoseletivoseplagapi.services.CidadeService;
 import com.example.desafioprocessoseletivoseplagapi.utils.QueryUtil;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class CidadeServiceImpl implements CidadeService, LayerDefinition {
         return new CidadeDTO(model);
     }
 
+    @CacheEvict(cacheNames = "cidades", key = "#id")
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
@@ -50,11 +52,13 @@ public class CidadeServiceImpl implements CidadeService, LayerDefinition {
         return repository.findAll().stream().map(CidadeDTO::new).toList();
     }
 
+    @Cacheable(cacheNames = "cidades", key = "#id")
     @Override
     public CidadeDTO findById(Long id) {
         return repository.findById(id).map(CidadeDTO::new).orElseThrow(() -> new ResourceNotFoundException("Nenhuma cidade encontrada", this));
     }
 
+    @CacheEvict(cacheNames = "cidades", key = "#id")
     @Override
     public CidadeDTO update(CidadeDTO dto, Long id) {
         if (!repository.existsById(id)) {

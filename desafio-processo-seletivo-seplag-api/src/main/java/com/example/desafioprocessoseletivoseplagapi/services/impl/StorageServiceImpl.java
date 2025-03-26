@@ -1,7 +1,10 @@
 package com.example.desafioprocessoseletivoseplagapi.services.impl;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.*;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.desafioprocessoseletivoseplagapi.dtos.FotoDTO;
 import com.example.desafioprocessoseletivoseplagapi.services.StorageService;
 import org.springframework.stereotype.Service;

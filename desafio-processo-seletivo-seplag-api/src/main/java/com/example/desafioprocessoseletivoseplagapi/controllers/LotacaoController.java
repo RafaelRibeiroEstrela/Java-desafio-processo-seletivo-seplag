@@ -1,13 +1,16 @@
 package com.example.desafioprocessoseletivoseplagapi.controllers;
 
 import com.example.desafioprocessoseletivoseplagapi.dtos.LotacaoDTO;
+import com.example.desafioprocessoseletivoseplagapi.models.filters.LotacaoFilter;
 import com.example.desafioprocessoseletivoseplagapi.services.LotacaoService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/lotacoes")
+@RequestMapping("/v1/lotacoes")
 public class LotacaoController {
     
     private final LotacaoService service;
@@ -41,8 +44,8 @@ public class LotacaoController {
         return service.update(dto, id);
     }
 
-    @GetMapping("/unidade/{unidadeId}")
-    public List<LotacaoDTO> findServidoresEfetivosByUnidadeId(@PathVariable Long unidadeId) {
-        return service.findServidoresEfetivosByUnidadeId(unidadeId);
+    @PostMapping("/paginado")
+    public Page<LotacaoDTO> findByFilter(@RequestBody LotacaoFilter filter, Pageable pageable) {
+        return service.findByFilter(filter, pageable);
     }
 }

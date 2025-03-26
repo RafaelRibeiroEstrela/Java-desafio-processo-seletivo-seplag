@@ -4,13 +4,16 @@ import com.example.desafioprocessoseletivoseplagapi.models.Lotacao;
 import com.example.desafioprocessoseletivoseplagapi.models.Pessoa;
 import com.example.desafioprocessoseletivoseplagapi.models.Unidade;
 import com.example.desafioprocessoseletivoseplagapi.providers.dtos.ToModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 
 public class LotacaoDTO implements ToModel<Lotacao> {
 
     private Long id;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataLotacao;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataRemocao;
     private String portaria;
     private PessoaDTO pessoa;
