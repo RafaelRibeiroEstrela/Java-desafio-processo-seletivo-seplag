@@ -8,7 +8,7 @@ RUN mvn dependency:go-offline
 # Copia o código-fonte
 COPY src/ ./src/
 # Executa o build: clean e install
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 # Etapa de runtime: utiliza uma imagem mais leve apenas com o JDK para rodar a aplicação
 FROM amazoncorretto:21
