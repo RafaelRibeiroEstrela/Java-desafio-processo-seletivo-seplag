@@ -1,5 +1,5 @@
 # Etapa de build: utiliza a imagem do Maven para compilar o projeto
-FROM maven:3.8.6-openjdk-21 AS build
+FROM maven:3.9.9-amazoncorretto-21 AS build
 WORKDIR /app
 # Copia os arquivos de configuração e dependências
 COPY pom.xml .
@@ -11,7 +11,7 @@ COPY src/ ./src/
 RUN mvn clean install
 
 # Etapa de runtime: utiliza uma imagem mais leve apenas com o JDK para rodar a aplicação
-FROM zulu-openjdk:21-latest
+FROM amazoncorretto:21
 WORKDIR /app
 # Copia o JAR gerado na etapa de build
 COPY --from=build /app/target/desafio-processo-seletivo-seplag-api-0.0.1-SNAPSHOT.jar app.jar
