@@ -36,11 +36,9 @@ management:
 
 s3:
   endpoint: ${STORAGE_ENDPOINT:http://localhost:9000}
-  bucket-name: desafio-processo-seletivo-seplag-bucket
+  bucket-name: ${STORAGE_BUCKET_NAME:desafio-processo-seletivo-seplag-bucket}
   access-key: ${STORAGE_ACCESS_KEY:user}
   secret-key: ${STORAGE_SECRET_KEY:12345678}
 
 server:
   port: 8080
-
-debug: true
