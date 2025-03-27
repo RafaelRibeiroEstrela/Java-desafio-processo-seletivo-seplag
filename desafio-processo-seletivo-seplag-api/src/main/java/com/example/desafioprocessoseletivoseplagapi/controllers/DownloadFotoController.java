@@ -24,7 +24,7 @@ public class DownloadFotoController {
     }
 
     @Hidden
-    @GetMapping("/desafio-processo-seletivo-seplag-bucket/{key}")
+    @GetMapping("/minio/desafio-processo-seletivo-seplag-bucket/{key}")
     public ResponseEntity<InputStreamResource> download(@PathVariable String key) {
         FotoDTO dto = fotoService.download(key);
         return ResponseEntity.status(HttpStatus.OK)

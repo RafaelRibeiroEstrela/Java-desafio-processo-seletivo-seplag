@@ -2,6 +2,7 @@ package com.example.desafioprocessoseletivoseplagapi.handlers;
 
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.BusinessException;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.ResourceNotFoundException;
+import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.TokenException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,19 @@ import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
+
+    @ExceptionHandler(TokenException.class)
+    public ResponseEntity<StandardError> resourceNotFoundException(TokenException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError();
+        standardError.setCode(status.value());
+        standardError.setError("TokenException");
+        standardError.setDescrible(e.getMessage());
+        standardError.setInstant(LocalDateTime.now());
+        standardError.setPath(request.getRequestURI());
+        standardError.setHttpMethod(request.getMethod());
+        return ResponseEntity.status(status).body(standardError);
+    }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<StandardError> resourceNotFoundException(BusinessException e, HttpServletRequest request) {

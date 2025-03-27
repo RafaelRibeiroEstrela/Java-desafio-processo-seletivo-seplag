@@ -6,7 +6,6 @@ import com.example.desafioprocessoseletivoseplagapi.dtos.LoginDTO;
 import com.example.desafioprocessoseletivoseplagapi.models.User;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.BusinessException;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.LayerDefinition;
-import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.TokenException;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.LayerEnum;
 import com.example.desafioprocessoseletivoseplagapi.services.AuthenticationService;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +28,7 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public void upload(FotoDTO dto, String bucket, String key) {
         Map<String, String> map = new HashMap<>();
-        map.put("filename", dto.getFilename());
+        map.put("filename", sanitize(dto.getFilename()));
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(dto.getContentType());
         objectMetadata.setUserMetadata(map);
@@ -51,4 +53,14 @@ public class StorageServiceImpl implements StorageService {
         DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucket, key);
         s3Client.deleteObject(deleteObjectRequest);
     }
+
+    private String sanitize(String fileName) {
+        try {
+           return URLEncoder.encode(fileName, StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            return "arquivo";
+        }
+    }
+
+
 }

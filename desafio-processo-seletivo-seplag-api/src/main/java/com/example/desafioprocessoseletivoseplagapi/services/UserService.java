@@ -3,7 +3,6 @@ package com.example.desafioprocessoseletivoseplagapi.services;
 import com.example.desafioprocessoseletivoseplagapi.dtos.RoleDTO;
 import com.example.desafioprocessoseletivoseplagapi.dtos.UserDTO;
 import com.example.desafioprocessoseletivoseplagapi.providers.services.CreateService;
-import com.example.desafioprocessoseletivoseplagapi.providers.services.CrudService;
 import com.example.desafioprocessoseletivoseplagapi.providers.services.DeleteService;
 import com.example.desafioprocessoseletivoseplagapi.providers.services.FindService;
 

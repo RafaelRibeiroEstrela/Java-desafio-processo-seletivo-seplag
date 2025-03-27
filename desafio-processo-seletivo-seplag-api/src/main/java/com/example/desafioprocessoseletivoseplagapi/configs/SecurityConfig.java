@@ -3,7 +3,6 @@ package com.example.desafioprocessoseletivoseplagapi.configs;
 import com.example.desafioprocessoseletivoseplagapi.components.SecurityFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,7 +26,8 @@ public class SecurityConfig {
 
     public static final String[] PUBLIC_URIS = {
             "/auth/login",
-            "/auth/logout"
+            "/auth/logout",
+            "/minio/**"
     };
 
     public static final String[] SWAGGER_URIS = {

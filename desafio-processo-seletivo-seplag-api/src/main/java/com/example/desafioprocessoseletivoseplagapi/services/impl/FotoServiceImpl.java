@@ -113,6 +113,6 @@ public class FotoServiceImpl implements FotoService, LayerDefinition {
         if (agora.minusMinutes(5L).isAfter(dataCriacao)) {
             return null;
         }
-        return "http://localhost:" + applicationPort + "/" + bucketName + "/" + key;
+        return "http://localhost:" + applicationPort + "/minio" + "/" + bucketName + "/" + key;
     }
 }
