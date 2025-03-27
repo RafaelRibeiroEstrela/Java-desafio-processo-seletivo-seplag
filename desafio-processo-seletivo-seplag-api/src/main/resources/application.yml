@@ -24,7 +24,7 @@ springdoc:
     enabled: true
   swagger-ui:
     filter: true
-    path: ${SWAGGER_PATH:/doc/swagger.html}
+    path: /swagger-ui.html
 
 
 management:

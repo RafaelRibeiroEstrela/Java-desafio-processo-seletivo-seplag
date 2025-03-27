@@ -25,14 +25,27 @@ public class SecurityConfig {
         this.securityFilter = securityFilter;
     }
 
-    public static final String[] PUBLIC_URIS = {"/auth/login", "/auth/logout"};
+    public static final String[] PUBLIC_URIS = {
+            "/auth/login",
+            "/auth/logout"
+    };
+
+    public static final String[] SWAGGER_URIS = {
+            "/swagger-ui.html",
+            "/swagger-ui/**",
+            "/v2/api-docs/**",
+            "/v3/api-docs/**",
+            "/swagger-resources/**",
+            "/webjars/**"
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, PUBLIC_URIS).permitAll()
+                        .requestMatchers(PUBLIC_URIS).permitAll()
+                        .requestMatchers(SWAGGER_URIS).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(obj -> obj.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
