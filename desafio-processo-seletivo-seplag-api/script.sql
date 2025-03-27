@@ -153,7 +153,7 @@ create table user_tb
 );
 
 insert into user_tb (us_username, us_password)
-values ('joao_junior@teste.com', '$2a$12$9wZ/jMPm8ZKPsQgj1ZohiOIfVceCO5Pe7riyxHESdaoqSs5qTJFxO');
+values ('user@teste.com', '$2a$12$9wZ/jMPm8ZKPsQgj1ZohiOIfVceCO5Pe7riyxHESdaoqSs5qTJFxO');
 
 create table user_role_tb
 (

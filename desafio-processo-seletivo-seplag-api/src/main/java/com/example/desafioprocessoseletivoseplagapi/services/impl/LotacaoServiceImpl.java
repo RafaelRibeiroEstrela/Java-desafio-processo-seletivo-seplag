@@ -83,7 +83,7 @@ public class LotacaoServiceImpl implements LotacaoService, LayerDefinition {
 
     @Override
     public Page<LotacaoDTO> findByFilter(LotacaoFilter filter, Pageable pageable) {
-        Page<Lotacao> models = repository.findByFilter(QueryUtil.aplicarLetraMaiusculaEColocarEntreCoringas(filter.getNome()), filter.getUnidadeId(), pageable);
+        Page<Lotacao> models = repository.findByFilter(QueryUtil.aplicarLetraMaiusculaEColocarEntreCoringas(filter.getNomePessoa()), filter.getUnidadeId(), pageable);
         return models.map(lotacao -> {
             LotacaoDTO dto = new LotacaoDTO(lotacao);
             dto.setPessoa(pessoaService.findById(lotacao.getPessoaId()));

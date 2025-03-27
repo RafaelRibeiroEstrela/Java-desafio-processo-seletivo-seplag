@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class TokenManagment implements LayerDefinition {
@@ -21,6 +23,8 @@ public class TokenManagment implements LayerDefinition {
     private static final String SECRET_KEY = "XPTO";
     private static final String ISSUER = "spring-security-service";
     private static final Logger LOGGER = LoggerFactory.getLogger(TokenManagment.class);
+
+    private List<String> blackList = new ArrayList<>();
 
     public String generate(User user) {
         try {
@@ -37,6 +41,9 @@ public class TokenManagment implements LayerDefinition {
     }
 
     public String validadeToken(String token) {
+        if (blackList.contains(token)) {
+            throw new TokenException("Erro ao validar token: O token foi expirado", this);
+        }
         try {
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
             return JWT.require(algorithm)
@@ -50,9 +57,13 @@ public class TokenManagment implements LayerDefinition {
         }
     }
 
+    public void addTokenInBlackList(String token) {
+        blackList.add(token);
+    }
+
     private Instant expireToken() {
-        //1h - 3600 segundos
-        return Instant.now().plusSeconds(3600);
+        //5min - 300segundos
+        return Instant.now().plusSeconds(300);
     }
 
     @Override

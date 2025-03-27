@@ -2,15 +2,15 @@ package com.example.desafioprocessoseletivoseplagapi.models.filters;
 
 public class LotacaoFilter {
 
-    private String nome;
+    private String nomePessoa;
     private Long unidadeId;
 
-    public String getNome() {
-        return nome;
+    public String getNomePessoa() {
+        return nomePessoa;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomePessoa(String nomePessoa) {
+        this.nomePessoa = nomePessoa;
     }
 
     public Long getUnidadeId() {
