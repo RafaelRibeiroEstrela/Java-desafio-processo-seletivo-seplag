@@ -28,9 +28,9 @@ public class DownloadFotoController {
     public ResponseEntity<InputStreamResource> download(@PathVariable String key) {
         FotoDTO dto = fotoService.download(key);
         return ResponseEntity.status(HttpStatus.OK)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + dto.getFilename())
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + dto.getFilename())
                 .contentType(MediaType.parseMediaType(dto.getContentType()))
-                .contentLength(1L)
+                .contentLength(dto.getContent().length)
                 .body(new InputStreamResource(new ByteArrayInputStream(dto.getContent())));
     }
 }

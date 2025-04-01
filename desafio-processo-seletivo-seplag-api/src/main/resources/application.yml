@@ -8,9 +8,9 @@ spring:
       ddl-auto: none
 
   datasource:
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432}/desafio-processo-seletivo-seplag-db
-    username: ${POSTGRES_USER:postgres}
-    password: ${POSTGRES_PASS:postgres}
+    url: ${POSTGRES_URL}/desafio-processo-seletivo-seplag-db
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASS}
 
   servlet:
     multipart:
@@ -35,10 +35,10 @@ management:
       base-path: /monitoramento
 
 s3:
-  endpoint: ${STORAGE_ENDPOINT:http://localhost:9000}
-  bucket-name: ${STORAGE_BUCKET_NAME:desafio-processo-seletivo-seplag-bucket}
-  access-key: ${STORAGE_ACCESS_KEY:user}
-  secret-key: ${STORAGE_SECRET_KEY:12345678}
+  endpoint: ${STORAGE_ENDPOINT}
+  bucket-name: ${STORAGE_BUCKET_NAME}
+  access-key: ${STORAGE_ACCESS_KEY}
+  secret-key: ${STORAGE_SECRET_KEY}
 
 server:
   port: 8080
