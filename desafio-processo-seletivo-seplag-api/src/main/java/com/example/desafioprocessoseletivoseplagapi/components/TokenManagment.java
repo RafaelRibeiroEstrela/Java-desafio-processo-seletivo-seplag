@@ -57,6 +57,16 @@ public class TokenManagment implements LayerDefinition {
         }
     }
 
+    public String getUsernameFromToken(String token) {
+        try {
+            return JWT.decode(token).getSubject();
+        } catch (JWTVerificationException e) {
+            LOGGER.info("Erro ao validar token: {}", e.getMessage());
+            throw new TokenException("Erro ao validar token: " + e.getMessage(), this);
+        }
+
+    }
+
     public void addTokenInBlackList(String token) {
         blackList.add(token);
     }

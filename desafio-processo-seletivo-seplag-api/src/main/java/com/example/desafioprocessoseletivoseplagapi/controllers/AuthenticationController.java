@@ -23,6 +23,11 @@ public class AuthenticationController {
         return service.login(dto);
     }
 
+    @PostMapping("/refresh-token")
+    public LoginDTO refreshToken(@RequestBody LoginDTO dto) {
+        return service.refreshToken(dto);
+    }
+
     @PostMapping("/logout")
     public void login(@RequestBody LoginDTO dto) {
         service.logout(dto);

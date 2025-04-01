@@ -6,7 +6,9 @@ import com.example.desafioprocessoseletivoseplagapi.dtos.LoginDTO;
 import com.example.desafioprocessoseletivoseplagapi.models.User;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.BusinessException;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.LayerDefinition;
+import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.ResourceNotFoundException;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.LayerEnum;
+import com.example.desafioprocessoseletivoseplagapi.repositories.UserRepository;
 import com.example.desafioprocessoseletivoseplagapi.services.AuthenticationService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,19 +20,31 @@ public class AuthenticationServiceImpl implements AuthenticationService, LayerDe
 
     private final AuthenticationManager authenticationManager;
     private final TokenManagment tokenManagment;
+    private final UserRepository userRepository;
 
-    public AuthenticationServiceImpl(AuthenticationManager authenticationManager, TokenManagment tokenManagment) {
+    public AuthenticationServiceImpl(AuthenticationManager authenticationManager, TokenManagment tokenManagment, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.tokenManagment = tokenManagment;
+        this.userRepository = userRepository;
     }
 
     @Override
     public LoginDTO login(AuthenticationDTO dto) {
+        validarCamposObrigatorios(dto);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
         Authentication auth = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         String token = tokenManagment.generate((User) auth.getPrincipal());
         return new LoginDTO(token);
     }
+
+    @Override
+    public LoginDTO refreshToken(LoginDTO loginDTO) {
+        String username = tokenManagment.getUsernameFromToken(loginDTO.getToken());
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("Nenhum usuário encontrado", this));
+        String token = tokenManagment.generate(user);
+        return new LoginDTO(token);
+    }
+
 
     @Override
     public void logout(LoginDTO loginDTO) {

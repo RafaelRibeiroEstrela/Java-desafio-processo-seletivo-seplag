@@ -25,8 +25,7 @@ public class SecurityConfig {
     }
 
     public static final String[] PUBLIC_URIS = {
-            "/auth/login",
-            "/auth/logout",
+            "/auth/**",
             "/minio/**"
     };
 
@@ -39,6 +38,7 @@ public class SecurityConfig {
             "/webjars/**"
     };
 
+    /*
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -47,6 +47,19 @@ public class SecurityConfig {
                         .requestMatchers(PUBLIC_URIS).permitAll()
                         .requestMatchers(SWAGGER_URIS).permitAll()
                         .anyRequest().authenticated())
+                .sessionManagement(obj -> obj.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }
+
+     */
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll())
                 .sessionManagement(obj -> obj.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
