@@ -166,3 +166,61 @@ create table user_role_tb
 
 insert into user_role_tb (ro_id, us_id)
 values (1, 1);
+
+
+-- Inserções adicionais para cidade
+insert into cidade (cid_nome, cid_uf) values
+                                          ('Várzea Grande', 'MT'),
+                                          ('Rondonópolis', 'MT'),
+                                          ('Sinop', 'MT');
+
+-- Inserções adicionais para unidade
+insert into unidade (unid_nome, unid_sigla) values
+                                                ('SECRETARIA DE EDUCAÇÃO', 'SEDUC'),
+                                                ('SECRETARIA DE SAÚDE', 'SES'),
+                                                ('SECRETARIA DE FAZENDA', 'SEFAZ');
+
+-- Inserções adicionais para endereço
+insert into endereco (end_tipo_logradouro, end_logradouro, end_numero, end_bairro, cid_id) values
+                                                                                               ('AVENIDA', 'Presidente Marques', '1200', 'Centro', 2),
+                                                                                               ('RUA', 'São Paulo', '230', 'Boa Esperança', 3),
+                                                                                               ('AVENIDA', 'Das Palmeiras', '350', 'Centro Norte', 4);
+
+-- Inserções para unidade_endereco
+insert into unidade_endereco (unid_id, end_id) values
+                                                   (2, 2),
+                                                   (3, 3),
+                                                   (4, 4);
+
+-- Inserções para pessoa
+insert into pessoa (pes_nome, pes_data_nascimento, pes_sexo, pes_mae, pes_pai) values
+                                                                                   ('Ana Beatriz Souza', '1985-03-22', 'FEMININO', 'Cláudia Souza', 'Carlos Souza'),
+                                                                                   ('Fernando Meirelles', '1978-11-05', 'MASCULINO', 'Teresa Meirelles', 'João Meirelles'),
+                                                                                   ('Juliana Alves', '1992-07-15', 'FEMININO', 'Marina Alves', 'Paulo Alves');
+
+-- Inserções para foto_pessoa
+insert into foto_pessoa (fp_data, fp_bucket, fp_hash, fp_url, pes_id) values
+                                                                          (CURRENT_DATE, 'desafio-seletivo-seplag-bucket', 'hash2', 'http://localhost:8080/desafio-processo-seletivo-seplag-bucket/hash2', 2),
+                                                                          (CURRENT_DATE, 'desafio-seletivo-seplag-bucket', 'hash3', 'http://localhost:8080/desafio-processo-seletivo-seplag-bucket/hash3', 3),
+                                                                          (CURRENT_DATE, 'desafio-seletivo-seplag-bucket', 'hash4', 'http://localhost:8080/desafio-processo-seletivo-seplag-bucket/hash4', 4);
+
+-- Inserções para pessoa_endereco
+insert into pessoa_endereco (pes_id, end_id) values
+                                                 (2, 2),
+                                                 (3, 3),
+                                                 (4, 4);
+
+-- Inserções para servidor_efetivo
+insert into servidor_efetivo (se_matricula, pes_id) values
+                                                        (1001, 2),
+                                                        (1002, 3);
+
+-- Inserções para servidor_temporario
+insert into servidor_temporario (pes_id, st_data_admissao, st_data_demissao) values
+    (4, '2023-05-10', null);
+
+-- Inserções para lotacao
+insert into lotacao (lot_data_lotacao, lot_portaria, pes_id, unid_id) values
+                                                                          (CURRENT_DATE, 'PORTARIA SEDUC', 2, 2),
+                                                                          (CURRENT_DATE, 'PORTARIA SES', 3, 3),
+                                                                          (CURRENT_DATE, 'PORTARIA SEFAZ', 4, 4);
