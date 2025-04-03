@@ -32,7 +32,6 @@ public class SecurityFilter extends OncePerRequestFilter {
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        /*
         if (!isPublicUri(request.getRequestURI())) {
             String token = recoverToken(request);
             if (token != null && !token.isEmpty()) {
@@ -42,8 +41,6 @@ public class SecurityFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-
-         */
         filterChain.doFilter(request, response);
     }
 
