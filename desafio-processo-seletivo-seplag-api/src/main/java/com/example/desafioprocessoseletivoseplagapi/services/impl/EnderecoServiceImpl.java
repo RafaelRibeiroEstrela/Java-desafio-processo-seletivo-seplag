@@ -11,8 +11,6 @@ import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.L
 import com.example.desafioprocessoseletivoseplagapi.repositories.EnderecoRepository;
 import com.example.desafioprocessoseletivoseplagapi.services.CidadeService;
 import com.example.desafioprocessoseletivoseplagapi.services.EnderecoService;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +19,6 @@ import java.util.List;
 public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
 
     private final EnderecoRepository repository;
-
     private final CidadeService cidadeService;
 
     public EnderecoServiceImpl(EnderecoRepository repository, CidadeService cidadeService) {
@@ -32,12 +29,15 @@ public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
     @Override
     public EnderecoDTO create(EnderecoDTO dto) {
         validarCamposObrigatorios(dto);
+        CidadeDTO cidadeDTO = dto.getCidade().getId() == null ? cidadeService.create(dto.getCidade()) : cidadeService.update(dto.getCidade(), dto.getCidade().getId());
         Endereco model = dto.toModel();
+        model.setCidadeId(cidadeDTO.getId());
         model = repository.save(model);
-        return new EnderecoDTO(model);
+        dto = new EnderecoDTO(model);
+        dto.setCidade(cidadeDTO);
+        return dto;
     }
 
-    @CacheEvict(cacheNames = "enderecos", key = "#id")
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
@@ -48,7 +48,6 @@ public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
         return repository.findAll().stream().map(EnderecoDTO::new).toList();
     }
 
-    @Cacheable(cacheNames = "enderecos", key = "#id")
     @Override
     public EnderecoDTO findById(Long id) {
         Endereco model = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Nenhum endereco encontrado", this));
@@ -58,16 +57,19 @@ public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
         return dto;
     }
 
-    @CacheEvict(cacheNames = "enderecos", key = "#id")
     @Override
-    public EnderecoDTO update(EnderecoDTO enderecoDTO, Long id) {
+    public EnderecoDTO update(EnderecoDTO dto, Long id) {
         if (!repository.existsById(id)) {
             throw new ResourceNotFoundException("Nenhum endereco encontrado", this);
         }
-        Endereco model = enderecoDTO.toModel();
+        CidadeDTO cidadeDTO = dto.getCidade().getId() == null ? cidadeService.create(dto.getCidade()) : cidadeService.update(dto.getCidade(), dto.getCidade().getId());
+        Endereco model = dto.toModel();
         model.setId(id);
+        model.setCidadeId(cidadeDTO.getId());
         model = repository.save(model);
-        return new EnderecoDTO(model);
+        dto = new EnderecoDTO(model);
+        dto.setCidade(cidadeDTO);
+        return dto;
     }
 
     @Override
@@ -93,7 +95,7 @@ public class EnderecoServiceImpl implements EnderecoService, LayerDefinition {
         if (endereco.getBairro() == null || endereco.getBairro().isEmpty()) {
             throw new BusinessException("O bairro é obrigatório", this);
         }
-        if (endereco.getCidade() == null || endereco.getCidade().getId() == null) {
+        if (endereco.getCidade() == null) {
             throw new BusinessException("A cidade é obrigatória", this);
         }
     }

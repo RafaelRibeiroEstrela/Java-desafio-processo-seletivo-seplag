@@ -51,10 +51,8 @@ public class ServidorEfetivoDTO implements ToModel<ServidorEfetivo> {
     @Override
     public ServidorEfetivo toModel() {
         ServidorEfetivo model = new ServidorEfetivo();
+        model.setId(id);
         model.setMatricula(matricula);
-        if (pessoa != null) {
-            model.setId(pessoa.getId());
-        }
         return model;
     }
 }

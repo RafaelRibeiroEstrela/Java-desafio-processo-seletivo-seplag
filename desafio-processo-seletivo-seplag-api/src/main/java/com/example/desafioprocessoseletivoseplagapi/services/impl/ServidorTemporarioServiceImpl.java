@@ -10,6 +10,8 @@ import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.L
 import com.example.desafioprocessoseletivoseplagapi.repositories.ServidorTemporarioRepository;
 import com.example.desafioprocessoseletivoseplagapi.services.PessoaService;
 import com.example.desafioprocessoseletivoseplagapi.services.ServidorTemporarioService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -45,6 +47,11 @@ public class ServidorTemporarioServiceImpl implements ServidorTemporarioService,
     public void delete(Long id) {
         repository.deleteById(id);
         pessoaService.delete(id);
+    }
+
+    @Override
+    public Page<ServidorTemporarioDTO> findAll(Pageable pageable) {
+        return repository.findAll(pageable).map(ServidorTemporarioDTO::new);
     }
 
     @Override
@@ -86,5 +93,6 @@ public class ServidorTemporarioServiceImpl implements ServidorTemporarioService,
         }
     }
 
-    
+
+
 }

@@ -10,6 +10,8 @@ import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.L
 import com.example.desafioprocessoseletivoseplagapi.repositories.ServidorEfetivoRepository;
 import com.example.desafioprocessoseletivoseplagapi.services.PessoaService;
 import com.example.desafioprocessoseletivoseplagapi.services.ServidorEfetivoService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,6 +45,11 @@ public class ServidorEfetivoServiceImpl implements ServidorEfetivoService, Layer
     public void delete(Long id) {
         repository.deleteById(id);
         pessoaService.delete(id);
+    }
+
+    @Override
+    public Page<ServidorEfetivoDTO> findAll(Pageable pageable) {
+        return repository.findAll(pageable).map(ServidorEfetivoDTO::new);
     }
 
     @Override
@@ -83,4 +90,6 @@ public class ServidorEfetivoServiceImpl implements ServidorEfetivoService, Layer
     public LayerEnum getLayer() {
         return LayerEnum.API_COMPONENT;
     }
+
+
 }

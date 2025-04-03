@@ -59,7 +59,6 @@ public class PessoaServiceImpl implements PessoaService, LayerDefinition {
         return new PessoaDTO(model);
     }
 
-    @CacheEvict(cacheNames = "pessoas", key = "#id")
     @Override
     public void delete(Long id) {
         List<PessoaEndereco> pessoaEnderecoList = pessoaEnderecoRepository.findByPessoaId(id);
@@ -74,7 +73,6 @@ public class PessoaServiceImpl implements PessoaService, LayerDefinition {
         return repository.findAll().stream().map(PessoaDTO::new).toList();
     }
 
-    @Cacheable(cacheNames = "pessoas", key = "#id")
     @Override
     public PessoaDTO findById(Long id) {
         Pessoa model = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Nenhuma pessoa encontrada", this));
@@ -87,7 +85,6 @@ public class PessoaServiceImpl implements PessoaService, LayerDefinition {
         return dto;
     }
 
-    @CacheEvict(cacheNames = "pessoas", key = "#id")
     @Override
     public PessoaDTO update(PessoaDTO dto, Long id) {
         if (!repository.existsById(id)) {

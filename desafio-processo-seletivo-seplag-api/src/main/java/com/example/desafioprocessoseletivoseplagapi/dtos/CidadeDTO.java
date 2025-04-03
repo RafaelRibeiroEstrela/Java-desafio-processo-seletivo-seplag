@@ -9,9 +9,7 @@ import jakarta.validation.constraints.NotNull;
 public class CidadeDTO implements ToModel<Cidade> {
 
     private Long id;
-    @NotEmpty(message = "O nome da cidade é obrigatório")
     private String nome;
-    @NotNull(message = "A unidade federativa da cidade é obrigatório")
     private UfEnum uf;
 
     public CidadeDTO() {}

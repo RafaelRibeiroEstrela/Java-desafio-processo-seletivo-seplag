@@ -8,5 +8,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface UnidadeService extends CrudService<UnidadeDTO, Long> {
 
-    Page<UnidadeDTO> findByFilter(UnidadeFilter filter, Pageable pageable);
+    Page<UnidadeDTO> findAll(Pageable pageable);
 }

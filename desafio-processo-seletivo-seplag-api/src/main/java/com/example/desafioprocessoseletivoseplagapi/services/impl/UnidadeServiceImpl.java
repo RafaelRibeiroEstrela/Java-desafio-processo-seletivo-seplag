@@ -36,10 +36,8 @@ public class UnidadeServiceImpl implements UnidadeService, LayerDefinition {
     }
 
     @Override
-    public Page<UnidadeDTO> findByFilter(UnidadeFilter filter, Pageable pageable) {
-        return repository
-                .findByFilter(QueryUtil.aplicarLetraMaiusculaEColocarEntreCoringas(filter.getNome()), QueryUtil.aplicarLetraMaiusculaEColocarEntreCoringas(filter.getSigla()), pageable)
-                .map(UnidadeDTO::new);
+    public Page<UnidadeDTO> findAll(Pageable pageable) {
+        return repository.findAll(pageable).map(UnidadeDTO::new);
     }
 
     @Override
@@ -100,8 +98,14 @@ public class UnidadeServiceImpl implements UnidadeService, LayerDefinition {
         return LayerEnum.API_COMPONENT;
     }
 
-    private void validarCamposObrigatorios(UnidadeDTO unidade) {
-        if (unidade.getEnderecos().isEmpty()) {
+    private void validarCamposObrigatorios(UnidadeDTO dto) {
+        if (dto.getNome() == null || dto.getNome().trim().isEmpty()) {
+            throw new BusinessException("O nome da unidade é obrigatório", this);
+        }
+        if (dto.getSigla() == null || dto.getSigla().trim().isEmpty()) {
+            throw new BusinessException("A sigla da unidade é obrigatório", this);
+        }
+        if (dto.getEnderecos().isEmpty()) {
             throw new BusinessException("O endereco da unidade é obrigatório", this);
         }
     }

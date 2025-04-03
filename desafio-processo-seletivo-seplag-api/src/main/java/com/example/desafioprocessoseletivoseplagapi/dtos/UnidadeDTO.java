@@ -3,7 +3,6 @@ package com.example.desafioprocessoseletivoseplagapi.dtos;
 import com.example.desafioprocessoseletivoseplagapi.models.Endereco;
 import com.example.desafioprocessoseletivoseplagapi.models.Unidade;
 import com.example.desafioprocessoseletivoseplagapi.providers.dtos.ToModel;
-import jakarta.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +10,7 @@ import java.util.List;
 public class UnidadeDTO implements ToModel<Unidade> {
 
     private Long id;
-    @NotEmpty(message = "O nome da unidade é obrigatório")
     private String nome;
-    @NotEmpty(message = "A sigla da unidade é obrigatório")
     private String sigla;
     private List<EnderecoDTO> enderecos = new ArrayList<>();
 

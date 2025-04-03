@@ -6,6 +6,8 @@ import com.example.desafioprocessoseletivoseplagapi.services.UnidadeService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,26 +25,21 @@ public class UnidadeController {
 
     @Transactional(readOnly = true)
     @PostMapping("/paginado")
-    public Page<UnidadeDTO> findByFilter(@RequestBody UnidadeFilter filter, Pageable pageable) {
-        return service.findByFilter(filter, pageable);
+    public Page<UnidadeDTO> finAll(Pageable pageable) {
+        return service.findAll(pageable);
     }
 
     @Transactional
     @PostMapping
-    public UnidadeDTO create(@RequestBody @Valid UnidadeDTO request) {
-        return service.create(request);
+    public ResponseEntity<UnidadeDTO> create(@RequestBody @Valid UnidadeDTO request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(request));
     }
 
     @Transactional
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
-    }
-
-    @Transactional(readOnly = true)
-    @GetMapping
-    public List<UnidadeDTO> findAll() {
-       return service.findAll();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Transactional(readOnly = true)

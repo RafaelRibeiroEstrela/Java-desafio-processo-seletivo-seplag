@@ -5,6 +5,8 @@ import com.example.desafioprocessoseletivoseplagapi.models.filters.LotacaoFilter
 import com.example.desafioprocessoseletivoseplagapi.services.LotacaoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,13 +22,14 @@ public class LotacaoController {
     }
 
     @PostMapping
-    public LotacaoDTO create(@RequestBody LotacaoDTO dto) {
-        return service.create(dto);
+    public ResponseEntity<LotacaoDTO> create(@RequestBody LotacaoDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
     }
 
-    @DeleteMapping
-    public void delete(Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping
