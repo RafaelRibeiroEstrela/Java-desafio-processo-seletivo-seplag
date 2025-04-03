@@ -54,6 +54,11 @@
         <div class="text-center mt-3">
             <small class="text-muted">Os arquivos serão compactados em um arquivo ZIP após o upload.</small>
         </div>
+        <!-- Área para exibir o JSON retornado -->
+        <div class="mt-4">
+            <h5>Resposta da API:</h5>
+            <pre id="result" class="bg-light p-3 border rounded"></pre>
+        </div>
     </div>
 </div>
 
@@ -86,16 +91,18 @@
         })
             .then(response => {
                 if (response.ok) {
-                    alert("Upload realizado com sucesso!");
                     return response.json();
                 } else {
                     return response.text().then(text => { throw new Error(text) });
                 }
             })
-            .then(data => console.log(data))
+            .then(data => {
+                // Exibe o JSON retornado na área de resultado
+                document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+            })
             .catch(error => {
                 console.error('Erro:', error);
-                alert("Erro ao realizar o upload: " + error.message);
+                document.getElementById("result").textContent = "Erro ao realizar o upload: " + error.message;
             });
     });
 </script>
