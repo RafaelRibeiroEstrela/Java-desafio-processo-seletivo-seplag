@@ -41,4 +41,4 @@ s3:
   secret-key: ${STORAGE_SECRET_KEY}
 
 server:
-  port: 8080
+  port: 26000
