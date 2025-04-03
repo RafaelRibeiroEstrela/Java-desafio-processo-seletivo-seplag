@@ -6,6 +6,13 @@ import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.Storage
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.LayerEnum;
 import com.example.desafioprocessoseletivoseplagapi.services.FotoService;
 import com.example.desafioprocessoseletivoseplagapi.utils.FileUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +26,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 
+@Tag(name = "foto-controller", description = "Operações relacionadas às fotos")
 @RestController
 @RequestMapping("/v1/fotos")
 public class FotoController implements LayerDefinition {
@@ -32,9 +40,21 @@ public class FotoController implements LayerDefinition {
         this.fileUtil = fileUtil;
     }
 
+    @Operation(summary = "Upload de fotos", description = "Realiza o upload de uma ou mais fotos para a pessoa especificada")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Fotos enviadas com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = FotoDTO[].class))),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
+            @ApiResponse(responseCode = "500", description = "Erro ao processar o arquivo")
+    })
     @Transactional
-    @PutMapping("/upload/{id}")
-    public List<FotoDTO> uploadFotos(@RequestParam("files") List<MultipartFile> files, @PathVariable Long id) {
+    @PutMapping("/upload/{pessoaId}")
+    public List<FotoDTO> uploadFotos(
+            @Parameter(description = "Lista de arquivos de foto a serem enviados", required = true)
+            @RequestParam("files") List<MultipartFile> files,
+            @Parameter(description = "ID da pessoa", required = true)
+            @PathVariable Long pessoaId) {
         return files.stream().map(file -> {
             FotoDTO dto = new FotoDTO();
             dto.setFilename(file.getOriginalFilename());
@@ -44,16 +64,25 @@ public class FotoController implements LayerDefinition {
             } catch (IOException e) {
                 throw new StorageException("Erro ao obter arquivo: " + e.getMessage(), this);
             }
-            return service.upload(dto, id);
+            return service.upload(dto, pessoaId);
         }).toList();
     }
 
+    @Operation(summary = "Download de fotos", description = "Realiza o download de um arquivo ZIP contendo as fotos associadas à pessoa informada")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Arquivo ZIP gerado com sucesso",
+                    content = @Content(mediaType = "application/octet-stream")),
+            @ApiResponse(responseCode = "404", description = "Fotos não encontradas para a pessoa especificada"),
+            @ApiResponse(responseCode = "500", description = "Erro ao gerar o arquivo ZIP")
+    })
     @Transactional(readOnly = true)
-    @GetMapping("/download/{id}")
-    public ResponseEntity<Resource> download(@PathVariable Long id) {
-        List<FotoDTO> dtos = service.download(id);
+    @GetMapping("/download/{pessoaId}")
+    public ResponseEntity<Resource> download(
+            @Parameter(description = "ID da pessoa", required = true)
+            @PathVariable Long pessoaId) {
+        List<FotoDTO> dtos = service.download(pessoaId);
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "arquivos.zip" + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"arquivos.zip\"")
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(new InputStreamResource(new ByteArrayInputStream(fileUtil.compactFilesToZip(dtos))));
     }

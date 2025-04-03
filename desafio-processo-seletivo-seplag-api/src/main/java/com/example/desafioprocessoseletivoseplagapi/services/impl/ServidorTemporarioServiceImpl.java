@@ -74,7 +74,10 @@ public class ServidorTemporarioServiceImpl implements ServidorTemporarioService,
             throw new ResourceNotFoundException("Nenhum servidor efetivo encontrado", this);
         }
         pessoaService.update(dto.getPessoa(), id);
-        return dto;
+        ServidorTemporario model = dto.toModel();
+        model.setId(id);
+        model = repository.save(model);
+        return new ServidorTemporarioDTO(model);
     }
 
     @Override
@@ -86,13 +89,12 @@ public class ServidorTemporarioServiceImpl implements ServidorTemporarioService,
     public LayerEnum getLayer() {
         return LayerEnum.API_COMPONENT;
     }
-    
+
     private void validarCamposObrigatorios(ServidorTemporarioDTO servidorTemporarioDTO) {
         if (servidorTemporarioDTO.getPessoa() == null) {
             throw new BusinessException("Os dados da pessoa são obrigatórios", this);
         }
     }
-
 
 
 }

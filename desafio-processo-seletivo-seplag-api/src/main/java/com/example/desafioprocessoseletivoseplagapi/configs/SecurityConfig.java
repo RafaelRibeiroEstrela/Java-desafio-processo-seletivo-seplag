@@ -26,7 +26,8 @@ public class SecurityConfig {
 
     public static final String[] PUBLIC_URIS = {
             "/auth/**",
-            "/minio/**"
+            "/minio/**",
+            "/upload-fotos"
     };
 
     public static final String[] SWAGGER_URIS = {
@@ -37,6 +38,7 @@ public class SecurityConfig {
             "/swagger-resources/**",
             "/webjars/**"
     };
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {

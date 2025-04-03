@@ -52,8 +52,13 @@ public class LotacaoServiceImpl implements LotacaoService, LayerDefinition {
     }
 
     @Override
+    public Page<LotacaoDTO> findAll(Pageable pageable) {
+        return repository.findAll(pageable).map(LotacaoDTO::new);
+    }
+
+    @Override
     public List<LotacaoDTO> findAll() {
-        return repository.findAll().stream().map(LotacaoDTO::new).toList();
+        return List.of();
     }
 
     @Override
@@ -79,17 +84,6 @@ public class LotacaoServiceImpl implements LotacaoService, LayerDefinition {
         lotacao.setUnidadeId(dto.getUnidade().getId());
         lotacao = repository.save(lotacao);
         return new LotacaoDTO(lotacao);
-    }
-
-    @Override
-    public Page<LotacaoDTO> findByFilter(LotacaoFilter filter, Pageable pageable) {
-        Page<Lotacao> models = repository.findByFilter(QueryUtil.aplicarLetraMaiusculaEColocarEntreCoringas(filter.getNomePessoa()), filter.getUnidadeId(), pageable);
-        return models.map(lotacao -> {
-            LotacaoDTO dto = new LotacaoDTO(lotacao);
-            dto.setPessoa(pessoaService.findById(lotacao.getPessoaId()));
-            dto.setUnidade(unidadeService.findById(lotacao.getUnidadeId()));
-            return dto;
-        });
     }
 
 

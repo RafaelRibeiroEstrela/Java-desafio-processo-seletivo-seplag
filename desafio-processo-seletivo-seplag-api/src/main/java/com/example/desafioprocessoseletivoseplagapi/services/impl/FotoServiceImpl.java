@@ -8,7 +8,9 @@ import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.Resourc
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.StorageException;
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.LayerEnum;
 import com.example.desafioprocessoseletivoseplagapi.repositories.FotoRepository;
+import com.example.desafioprocessoseletivoseplagapi.repositories.PessoaRepository;
 import com.example.desafioprocessoseletivoseplagapi.services.FotoService;
+import com.example.desafioprocessoseletivoseplagapi.services.PessoaService;
 import com.example.desafioprocessoseletivoseplagapi.services.StorageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class FotoServiceImpl implements FotoService, LayerDefinition {
 
     private final FotoRepository repository;
     private final StorageService storageService;
+    private final PessoaRepository pessoaRepository;
 
     @Value("${s3.bucket-name}")
     private String bucketName;
@@ -30,13 +33,18 @@ public class FotoServiceImpl implements FotoService, LayerDefinition {
     @Value("${server.port}")
     private String applicationPort;
 
-    public FotoServiceImpl(FotoRepository repository, StorageService storageService) {
+    public FotoServiceImpl(FotoRepository repository, StorageService storageService, PessoaRepository pessoaRepository) {
         this.repository = repository;
         this.storageService = storageService;
+        this.pessoaRepository = pessoaRepository;
     }
+
 
     @Override
     public FotoDTO upload(FotoDTO dto, long pessoaId) {
+        if (!pessoaRepository.existsById(pessoaId)) {
+            throw new BusinessException("A pessoa informada não existe", this);
+        }
         validarCamposObrigatorios(dto);
         String key = UUID.randomUUID().toString();
         storageService.upload(dto, bucketName, key);
@@ -51,6 +59,10 @@ public class FotoServiceImpl implements FotoService, LayerDefinition {
         fotoDTO.setId(model.getId());
         fotoDTO.setUrl(model.getUrl());
         fotoDTO.setData(model.getData());
+        fotoDTO.setBucket(bucketName);
+        fotoDTO.setHash(key);
+        fotoDTO.setFilename(dto.getFilename());
+        fotoDTO.setContentType(dto.getContentType());
         return fotoDTO;
     }
 

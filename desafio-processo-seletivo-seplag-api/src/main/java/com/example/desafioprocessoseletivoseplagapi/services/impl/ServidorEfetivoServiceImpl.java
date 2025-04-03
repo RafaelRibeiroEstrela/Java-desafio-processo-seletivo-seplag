@@ -72,7 +72,10 @@ public class ServidorEfetivoServiceImpl implements ServidorEfetivoService, Layer
             throw new ResourceNotFoundException("Nenhum servidor efetivo encontrado", this);
         }
         pessoaService.update(dto.getPessoa(), id);
-        return dto;
+        ServidorEfetivo model = dto.toModel();
+        model.setId(id);
+        model = repository.save(model);
+        return new ServidorEfetivoDTO(model);
     }
     
     private void validarCamposObrigatorios(ServidorEfetivoDTO servidorEfetivoDTO) {

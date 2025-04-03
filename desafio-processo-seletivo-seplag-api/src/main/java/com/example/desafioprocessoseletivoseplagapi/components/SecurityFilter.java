@@ -26,10 +26,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         this.repository = repository;
     }
 
-    /*
-    Este é um método de callback para o filtro.
-    Ele é chamado para cada requisição HTTP, permitindo a manipulação antes de passar a requisição para o próximo filtro ou recurso.
-     */
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if (!isPublicUri(request.getRequestURI())) {
