@@ -78,10 +78,6 @@ create table foto_pessoa
     constraint foto_pessoa_pes_id_fk foreign key (pes_id) references pessoa (pes_id)
 );
 
-insert into foto_pessoa (fp_data, fp_bucket, fp_hash, fp_url, pes_id)
-values (CURRENT_DATE, 'desafio-seletivo-seplag-bucket', '72d2d119-9e33-42f9-929c-bb7eb54062d0',
-        'http://localhost:8080/desafio-processo-seletivo-seplag-bucket/72d2d119-9e33-42f9-929c-bb7eb54062d0', 1);
-
 create table pessoa_endereco
 (
     pes_id bigint not null,
@@ -197,12 +193,6 @@ insert into pessoa (pes_nome, pes_data_nascimento, pes_sexo, pes_mae, pes_pai) v
                                                                                    ('Ana Beatriz Souza', '1985-03-22', 'FEMININO', 'Cláudia Souza', 'Carlos Souza'),
                                                                                    ('Fernando Meirelles', '1978-11-05', 'MASCULINO', 'Teresa Meirelles', 'João Meirelles'),
                                                                                    ('Juliana Alves', '1992-07-15', 'FEMININO', 'Marina Alves', 'Paulo Alves');
-
--- Inserções para foto_pessoa
-insert into foto_pessoa (fp_data, fp_bucket, fp_hash, fp_url, pes_id) values
-                                                                          (CURRENT_DATE, 'desafio-seletivo-seplag-bucket', 'hash2', 'http://localhost:8080/desafio-processo-seletivo-seplag-bucket/hash2', 2),
-                                                                          (CURRENT_DATE, 'desafio-seletivo-seplag-bucket', 'hash3', 'http://localhost:8080/desafio-processo-seletivo-seplag-bucket/hash3', 3),
-                                                                          (CURRENT_DATE, 'desafio-seletivo-seplag-bucket', 'hash4', 'http://localhost:8080/desafio-processo-seletivo-seplag-bucket/hash4', 4);
 
 -- Inserções para pessoa_endereco
 insert into pessoa_endereco (pes_id, end_id) values

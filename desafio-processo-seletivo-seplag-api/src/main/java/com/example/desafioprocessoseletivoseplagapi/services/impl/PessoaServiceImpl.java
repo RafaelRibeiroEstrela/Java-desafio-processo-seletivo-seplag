@@ -41,13 +41,6 @@ public class PessoaServiceImpl implements PessoaService, LayerDefinition {
     }
 
     @Override
-    public Page<PessoaDTO> findByFilter(PessoaFilter filter, Pageable pageable) {
-        return repository
-                .findByFilter(QueryUtil.aplicarLetraMaiusculaEColocarEntreCoringas(filter.getNome()), pageable)
-                .map(PessoaDTO::new);
-    }
-
-    @Override
     public PessoaDTO create(PessoaDTO dto) {
         validarCamposObrigatorios(dto);
         List<EnderecoDTO> enderecoDTOList = dto.getEnderecos().stream().map(enderecoService::create).toList();

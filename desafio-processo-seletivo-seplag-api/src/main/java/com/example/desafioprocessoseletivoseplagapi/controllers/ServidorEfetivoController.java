@@ -1,7 +1,8 @@
 package com.example.desafioprocessoseletivoseplagapi.controllers;
 
-import com.example.desafioprocessoseletivoseplagapi.dtos.CidadeDTO;
+import com.example.desafioprocessoseletivoseplagapi.dtos.CustomServidorEfetivoDTO;
 import com.example.desafioprocessoseletivoseplagapi.dtos.ServidorEfetivoDTO;
+import com.example.desafioprocessoseletivoseplagapi.dtos.UnidadeDTO;
 import com.example.desafioprocessoseletivoseplagapi.services.ServidorEfetivoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -114,5 +115,53 @@ public class ServidorEfetivoController {
             @RequestBody ServidorEfetivoDTO dto,
             @Parameter(description = "ID do servidor efetivo a ser atualizado", required = true) @PathVariable Long id) {
         return service.update(dto, id);
+    }
+
+    @Operation(summary = "Buscar servidores efetivos por unidadeId", description = "Buscar servidores efetivos lotados em uma unidade")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Consulta realizada com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Page.class)))
+    })
+    @Transactional(readOnly = true)
+    @GetMapping("/unidade")
+    public Page<ServidorEfetivoDTO> findByUnidadeId(
+            @Parameter(description = "Número da página (0-indexado)", example = "0")
+            @RequestParam(value = "page", defaultValue = "0") int page,
+
+            @Parameter(description = "Tamanho da página", example = "10")
+            @RequestParam(value = "size", defaultValue = "10") int size,
+
+            @Parameter(description = "ID da unidade", example = "1")
+            @RequestParam(value = "unidadeId", defaultValue = "1") Long unidadeId
+    ) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return service.findByUnidadeId(unidadeId, pageable);
+    }
+
+    @Operation(summary = "Buscar Endereço funcional da unidade por nome pessoa", description = "Buscar Endereço funcional da unidade por nome pessoa")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Consulta realizada com sucesso",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Page.class)))
+    })
+    @Transactional(readOnly = true)
+    @GetMapping("/nome-servidor")
+    public Page<UnidadeDTO> findByNomeServidor(
+            @Parameter(description = "Número da página (0-indexado)", example = "0")
+            @RequestParam(value = "page", defaultValue = "0") int page,
+
+            @Parameter(description = "Tamanho da página", example = "10")
+            @RequestParam(value = "size", defaultValue = "10") int size,
+
+            @Parameter(description = "Nome do servidor", example = "Carlos")
+            @RequestParam(value = "String") String nomeServidor
+    ) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return service.findByNomeServidor(nomeServidor, pageable);
     }
 }

@@ -22,4 +22,6 @@ public interface LotacaoRepository extends JpaRepository<Lotacao, Long> {
             "WHERE (:nome IS NULL OR UPPER(p.nome) LIKE :nome) " +
             "AND (:unidadeId IS NULL OR l.unidadeId = :unidadeId) ")
     Page<Lotacao> findByFilter(String nome, Long unidadeId, Pageable pageable);
+
+    List<Lotacao> findByPessoaId(Long pessoaId);
 }
