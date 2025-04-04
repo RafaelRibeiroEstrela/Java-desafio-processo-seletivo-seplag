@@ -90,7 +90,7 @@ http://localhost:8080/swagger-ui.html
 
 ## Autenticação e Segurança
 
-A aplicação utilização autentação e autorização com Spring Security e Token JWT.
+A aplicação utiliza OAuth token JWT para autenticação.
 
 Para realizar login, acesse o url:
 
