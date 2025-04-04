@@ -21,25 +21,6 @@ Este repositório contém a implementação da API desenvolvida para o desafio t
 
 ---
 
-## 📦 Estrutura do Projeto
-
-```
-src/
- └── main/
-      ├── java/
-      │    └── com.exemplo.seplag/
-      │          ├── controller/
-      │          ├── service/
-      │          ├── repository/
-      │          ├── model/
-      │          └── config/
-      └── resources/
-           ├── application.yml
-           └── ...
-```
-
----
-
 ## 🐳 Preparando o Ambiente com Docker
 
 Antes de subir os containers da aplicação, recomenda-se **limpar o ambiente Docker** para evitar conflitos com containers, volumes e redes antigas.
