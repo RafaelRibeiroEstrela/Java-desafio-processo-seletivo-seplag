@@ -125,16 +125,6 @@ Request: {
 
 ## 📁 Upload de Arquivos
 
-Os arquivos enviados são armazenados no **MinIO**, acessível via:
-
-```
-http://localhost:9000
-```
-
-- **Usuário:** user  
-- **Senha:** 12345678
-- **Bucket:** desafio-processo-seletivo-seplag-bucket
-
 Para realizar upload de fotos:
 
 ```
