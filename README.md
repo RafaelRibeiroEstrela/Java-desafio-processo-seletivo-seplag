@@ -146,6 +146,97 @@ Lembre-se que a URL irá expirar após 5 minutos.
 
 ---
 
+## Observações:
+
+Alguns atributos são enums, utilize os valores abaixo:
+
+TipoLogradouro:
+```
+    AEROPORTO,
+    ALAMEDA,
+    AREA,
+    AVENIDA,
+    CAMPO,
+    CHACARA,
+    COLONIA,
+    CONDOMINIO,
+    CONJUNTO,
+    DISTRITO,
+    ESPLANADA,
+    ESTACAO,
+    ESTRADA,
+    FAVELA,
+    FAZENDA,
+    FEIRA,
+    JARDIM,
+    LADEIRA,
+    LAGO,
+    LAGOA,
+    LARGO,
+    LOTEAMENTO,
+    MORRO,
+    NUCLEO,
+    PARQUE,
+    PASSARELA,
+    PATIO,
+    PRACA,
+    QUADRA,
+    RECANTO,
+    RESIDENCIAL,
+    RODOVIA,
+    RUA,
+    SETOR,
+    SITIO,
+    TRAVESSA,
+    TRECHO,
+    TREVO,
+    VALE,
+    VEREDA,
+    VIA,
+    VIADUTO,
+    VIELA,
+    VILA;
+```
+
+Sexo:
+
+```
+    MASCUNILO
+    FEMININO
+```
+
+UnidadeFederativa:
+
+```
+    AC,
+    AL,
+    AP,
+    AM,
+    BA,
+    CE,
+    DF,
+    ES,
+    GO,
+    MA,
+    MT,
+    MS,
+    MG,
+    PA,
+    PB,
+    PR,
+    PE,
+    PI,
+    RJ,
+    RN,
+    RS,
+    RO,
+    RR,
+    SC,
+    SP,
+    SE,
+    TO
+```
+
 ## ✅ Status
 
 > ✅ Projeto concluído com sucesso  
