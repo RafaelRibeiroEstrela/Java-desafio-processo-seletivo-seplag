@@ -100,6 +100,15 @@ http://localhost:9000
 - **Senha:** 12345678
 - **Bucket:** desafio-processo-seletivo-seplag-bucket
 
+Para realizar upload de fotos:
+
+```
+http://localhost:8080/upload-fotos
+```
+
+Ao realizar o upload, será retornado um json com a URL para recuperar o arquivo.
+Lembre-se que a URL irá expirar após 5 minutos.
+
 ---
 
 ## 🧩 Arquitetura & Padrões
