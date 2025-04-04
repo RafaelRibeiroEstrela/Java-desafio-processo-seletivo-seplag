@@ -54,7 +54,7 @@ docker system prune -a --volumes -f
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seuusuario/seplag-api.git
+git clone https://github.com/RafaelRibeiroEstrela/Java-desafio-processo-seletivo-seplag.git
 cd seplag-api
 ```
 
@@ -78,7 +78,7 @@ O sistema irá subir os seguintes serviços:
 
 A API expõe endpoints RESTful documentados via Swagger (ou Postman, se aplicável).
 
-- Acesse a documentação (caso habilitada):
+- Acesse a documentação:
 
 ```
 http://localhost:8080/swagger-ui.html
@@ -87,6 +87,41 @@ http://localhost:8080/swagger-ui.html
 - Utilize ferramentas como **Postman** ou **curl** para testar os endpoints.
 
 ---
+
+## Autenticação e Segurança
+
+A aplicação utilização autentação e autorização com Spring Security e Token JWT.
+
+Para realizar login, acesse o url:
+
+```
+Método: POST
+URL: http://localhost:8080/auth/login
+Request: {
+  "username":"admin",
+  "password":"12345"
+}
+```
+
+Para atualizar token, acesse o url:
+
+```
+Método: POST
+URL: http://localhost:8080/auth/refresh-token
+Request: {
+   "token":"{token}" 
+}
+```
+
+Para realizar logout, acesse a url:
+
+```
+Método: POST
+URL: http://localhost:8080/auth/logout
+Request: {
+   "token":"{token}" 
+}
+```
 
 ## 📁 Upload de Arquivos
 
