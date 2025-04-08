@@ -31,6 +31,7 @@ public class StorageServiceImpl implements StorageService {
         map.put("filename", sanitize(dto.getFilename()));
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(dto.getContentType());
+        objectMetadata.setContentLength(dto.getContent().length);
         objectMetadata.setUserMetadata(map);
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, key, new ByteArrayInputStream(dto.getContent()), objectMetadata);
         s3Client.putObject(putObjectRequest);
