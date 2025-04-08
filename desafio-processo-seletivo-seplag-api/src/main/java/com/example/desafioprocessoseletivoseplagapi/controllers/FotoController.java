@@ -6,6 +6,7 @@ import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.Storage
 import com.example.desafioprocessoseletivoseplagapi.providers.exceptions.enums.LayerEnum;
 import com.example.desafioprocessoseletivoseplagapi.services.FotoService;
 import com.example.desafioprocessoseletivoseplagapi.utils.FileUtil;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -40,6 +41,7 @@ public class FotoController implements LayerDefinition {
         this.fileUtil = fileUtil;
     }
 
+    @Hidden
     @Operation(summary = "Upload de fotos", description = "Realiza o upload de uma ou mais fotos para a pessoa especificada")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Fotos enviadas com sucesso",
