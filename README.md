@@ -149,6 +149,7 @@ Lembre-se que a URL irá expirar após 5 minutos.
 ## Observações:
 
 Datas devem ser informadas no padrão: dd/MM/yyyy
+Exemplo: 10/10/1990
 
 Alguns atributos são enums, utilize os valores abaixo:
 
