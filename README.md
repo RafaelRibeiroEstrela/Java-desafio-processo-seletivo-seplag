@@ -134,6 +134,8 @@ http://localhost:26000/upload-fotos
 Ao realizar o upload, será retornado um json com a URL para recuperar o arquivo.
 Lembre-se que a URL irá expirar após 5 minutos.
 
+Para download, utilize a URL retornada do uploaod ou utilize o endpoint de download informado o id da pessoa.
+
 ---
 
 ## 🧩 Arquitetura & Padrões
