@@ -1,6 +1,6 @@
 Nome do participante: Rafael Ribeiro Estrela
 
-Inscrição: 8369
+Inscrição: 9428
 
 Documentação:
 
@@ -63,7 +63,7 @@ cd seplag-api
 Na pasta principal do projeto, execute o comando:
 
 ```bash
-docker-compose up --build
+docker compose -f "docker-compose.yml" up -d --build
 ```
 
 O sistema irá subir os seguintes serviços:
@@ -81,7 +81,7 @@ A API expõe endpoints RESTful documentados via Swagger (ou Postman, se aplicáv
 - Acesse a documentação:
 
 ```
-http://localhost:8080/swagger-ui.html
+http://localhost:26000/swagger-ui.html
 ```
 
 - Utilize ferramentas como **Postman** ou **curl** para testar os endpoints.
@@ -96,7 +96,7 @@ Para realizar login, acesse o url:
 
 ```
 Método: POST
-URL: http://localhost:8080/auth/login
+URL: http://localhost:26000/auth/login
 Request: {
   "username":"admin",
   "password":"12345"
@@ -107,7 +107,7 @@ Para atualizar token, acesse o url:
 
 ```
 Método: POST
-URL: http://localhost:8080/auth/refresh-token
+URL: http://localhost:26000/auth/refresh-token
 Request: {
    "token":"{token}" 
 }
@@ -117,7 +117,7 @@ Para realizar logout, acesse a url:
 
 ```
 Método: POST
-URL: http://localhost:8080/auth/logout
+URL: http://localhost:26000/auth/logout
 Request: {
    "token":"{token}" 
 }
@@ -128,11 +128,13 @@ Request: {
 Para realizar upload de fotos:
 
 ```
-http://localhost:8080/upload-fotos
+http://localhost:26000/upload-fotos
 ```
 
 Ao realizar o upload, será retornado um json com a URL para recuperar o arquivo.
 Lembre-se que a URL irá expirar após 5 minutos.
+
+Para download, utilize a URL retornada do upload ou utilize o endpoint de download informado no Swagger.
 
 ---
 
@@ -148,9 +150,12 @@ Lembre-se que a URL irá expirar após 5 minutos.
 
 ## Observações:
 
+Datas devem ser informadas no padrão: dd/MM/yyyy
+Exemplo: 10/10/1990
+
 Alguns atributos são enums, utilize os valores abaixo:
 
-TipoLogradouro:
+tipoLogradouro:
 ```
     AEROPORTO,
     ALAMEDA,
@@ -198,14 +203,14 @@ TipoLogradouro:
     VILA;
 ```
 
-Sexo:
+sexo:
 
 ```
     MASCUNILO
     FEMININO
 ```
 
-UnidadeFederativa:
+unidadeFederativa:
 
 ```
     AC,
