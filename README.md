@@ -1,6 +1,6 @@
 Nome do participante: Rafael Ribeiro Estrela
 
-Inscrição: 8369
+Inscrição: 9428
 
 Documentação:
 
@@ -150,7 +150,7 @@ Lembre-se que a URL irá expirar após 5 minutos.
 
 Alguns atributos são enums, utilize os valores abaixo:
 
-TipoLogradouro:
+tipoLogradouro:
 ```
     AEROPORTO,
     ALAMEDA,
@@ -198,14 +198,14 @@ TipoLogradouro:
     VILA;
 ```
 
-Sexo:
+sexo:
 
 ```
     MASCUNILO
     FEMININO
 ```
 
-UnidadeFederativa:
+unidadeFederativa:
 
 ```
     AC,
