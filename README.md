@@ -81,7 +81,7 @@ A API expõe endpoints RESTful documentados via Swagger (ou Postman, se aplicáv
 - Acesse a documentação:
 
 ```
-http://localhost:8080/swagger-ui.html
+http://localhost:26000/swagger-ui.html
 ```
 
 - Utilize ferramentas como **Postman** ou **curl** para testar os endpoints.
