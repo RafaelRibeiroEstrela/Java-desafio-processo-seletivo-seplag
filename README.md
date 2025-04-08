@@ -96,7 +96,7 @@ Para realizar login, acesse o url:
 
 ```
 Método: POST
-URL: http://localhost:8080/auth/login
+URL: http://localhost:26000/auth/login
 Request: {
   "username":"admin",
   "password":"12345"
@@ -107,7 +107,7 @@ Para atualizar token, acesse o url:
 
 ```
 Método: POST
-URL: http://localhost:8080/auth/refresh-token
+URL: http://localhost:26000/auth/refresh-token
 Request: {
    "token":"{token}" 
 }
@@ -117,7 +117,7 @@ Para realizar logout, acesse a url:
 
 ```
 Método: POST
-URL: http://localhost:8080/auth/logout
+URL: http://localhost:26000/auth/logout
 Request: {
    "token":"{token}" 
 }
@@ -128,7 +128,7 @@ Request: {
 Para realizar upload de fotos:
 
 ```
-http://localhost:8080/upload-fotos
+http://localhost:26000/upload-fotos
 ```
 
 Ao realizar o upload, será retornado um json com a URL para recuperar o arquivo.
