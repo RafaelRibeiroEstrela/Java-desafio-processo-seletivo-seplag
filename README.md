@@ -148,6 +148,8 @@ Lembre-se que a URL irá expirar após 5 minutos.
 
 ## Observações:
 
+Datas devem ser informadas no padrão: dd/MM/yyyy
+
 Alguns atributos são enums, utilize os valores abaixo:
 
 tipoLogradouro:
