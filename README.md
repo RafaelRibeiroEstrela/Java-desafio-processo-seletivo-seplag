@@ -63,7 +63,7 @@ cd seplag-api
 Na pasta principal do projeto, execute o comando:
 
 ```bash
-docker-compose up --build
+docker compose -f "docker-compose.yml" up -d --build
 ```
 
 O sistema irá subir os seguintes serviços:
